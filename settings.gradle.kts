@@ -1,0 +1,2 @@
+rootProject.name = "nikitals-oop"
+
