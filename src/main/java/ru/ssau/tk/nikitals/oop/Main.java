@@ -15,3 +15,16 @@ public class Main {
         }
     }
 }
+class A {
+    String name = "some name";
+}
+class B extends A {
+    String name = "some B";
+
+    public static void main(String[] args) {
+        A a = new B();
+        B b = new B();
+        System.out.println(a.name);
+        System.out.println(b.name);
+    }
+}

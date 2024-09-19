@@ -1,2 +1,2 @@
 jar cfm myfirst.jar ru/ssau/tk/nikitals/oop/firstLab/manifest.mf ru/ssau/tk/nikitals/oop/firstLab/*.class ru/ssau/tk/nikitals/oop/firstLab/myfirstpackage/*.class
-java -jar myfirst.jarjava -jar myfirst.jar
+java -jar myfirst.jar

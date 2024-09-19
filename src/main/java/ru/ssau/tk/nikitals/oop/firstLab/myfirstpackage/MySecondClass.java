@@ -9,23 +9,23 @@ public class MySecondClass {
         this.secondVar = secondVar;
     }
 
-    public int getFirstVar() {
+    protected int getFirstVar() {
         return firstVar;
     }
 
-    public int getSecondVar() {
+    protected int getSecondVar() {
         return secondVar;
     }
 
-    public void setFirstVar(int firstVar) {
+    protected void setFirstVar(int firstVar) {
         this.firstVar = firstVar;
     }
 
-    public void setSecondVar(int secondVar) {
+    protected void setSecondVar(int secondVar) {
         this.secondVar = secondVar;
     }
 
-    public int sum() {
+    protected int sum() {
         return firstVar + secondVar;
     }
 
