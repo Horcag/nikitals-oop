@@ -17,6 +17,8 @@ class LinkedListTabulatedFunctionTest {
     void testConstructorWithArrays() {
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(5, function.getCount());
+        assertEquals(1.0, function.getX(0));
+        assertEquals(5.0, function.getX(4));
     }
 
     @Test
