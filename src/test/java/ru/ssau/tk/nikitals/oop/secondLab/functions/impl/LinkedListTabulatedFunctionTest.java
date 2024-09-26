@@ -38,6 +38,17 @@ class LinkedListTabulatedFunctionTest {
         assertEquals(1.0, function.getY(0));
         assertEquals(25.0, function.getY(4));
     }
+    @Test
+    void testConstructorWithFunction_v3() {
+        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(source, 5.0, 5.0, 5);
+        assertEquals(5, function.getCount());
+        assertEquals(5.0, function.getX(0));
+        assertEquals(5.0, function.getX(4));
+        assertEquals(25.0, function.getY(0));
+        assertEquals(25.0, function.getY(4));
+    }
+
+
 
     @Test
     void getCount() {
@@ -96,7 +107,8 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void floorIndexOfX() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);        assertEquals(0, function.floorIndexOfX(1.0));
+        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
+        assertEquals(0, function.floorIndexOfX(1.0));
         assertEquals(0, function.floorIndexOfX(1.5));
         assertEquals(1, function.floorIndexOfX(2.0));
         assertEquals(1, function.floorIndexOfX(2.5));
