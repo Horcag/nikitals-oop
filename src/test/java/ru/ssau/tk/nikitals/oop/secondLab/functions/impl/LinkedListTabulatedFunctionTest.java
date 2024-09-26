@@ -23,12 +23,12 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void testConstructorWithFunction() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(source, 1.0, 5.0, 5);
+        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(source, 1.0, 10.0, 5);
         assertEquals(5, function.getCount());
         assertEquals(1.0, function.getX(0));
-        assertEquals(5.0, function.getX(4));
+        assertEquals(10, function.getX(4));
         assertEquals(1.0, function.getY(0));
-        assertEquals(25.0, function.getY(4));
+        assertEquals(100, function.getY(4));
     }
 
     @Test
