@@ -1,7 +1,9 @@
-package ru.ssau.tk.nikitals.oop.secondLab.functions;
+package ru.ssau.tk.nikitals.oop.secondLab.functions.core;
+
+import ru.ssau.tk.nikitals.oop.secondLab.functions.impl.CompositeFunction;
 
 /**
- * Интерфейс, представляющий математическую функцию.
+ * Интерфейс, представляющий математические функции.
  */
 public interface MathFunction {
     /**
@@ -13,10 +15,10 @@ public interface MathFunction {
     double apply(double x);
 
     /**
-     * Возвращает композицию функций, которая сначала применяет эту функцию, а затем применяет afterFunction.
+     * Возвращает композицию этой функции и указанной функции.
      *
      * @param afterFunction функция, которая будет применена после этой функции
-     * @return композиция функций, которая сначала применяет эту функцию, а затем afterFunction
+     * @return композиция функций
      */
     default CompositeFunction andThen(MathFunction afterFunction) {
         return new CompositeFunction(this, afterFunction);

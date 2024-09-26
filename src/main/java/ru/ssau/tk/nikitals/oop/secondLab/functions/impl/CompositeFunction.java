@@ -1,4 +1,6 @@
-package ru.ssau.tk.nikitals.oop.secondLab.functions;
+package ru.ssau.tk.nikitals.oop.secondLab.functions.impl;
+
+import ru.ssau.tk.nikitals.oop.secondLab.functions.core.MathFunction;
 
 /**
  * Класс, представляющий композицию двух функций.

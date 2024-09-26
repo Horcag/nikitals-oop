@@ -1,4 +1,4 @@
-package ru.ssau.tk.nikitals.oop.secondLab.functions;
+package ru.ssau.tk.nikitals.oop.secondLab.functions.impl;
 
 import org.junit.jupiter.api.Test;
 

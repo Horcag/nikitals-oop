@@ -1,10 +1,12 @@
-package ru.ssau.tk.nikitals.oop.secondLab.functions;
+package ru.ssau.tk.nikitals.oop.secondLab.functions.impl;
+
+import ru.ssau.tk.nikitals.oop.secondLab.functions.core.MathFunction;
 
 /**
  * Класс, представляющий функцию идентичности.
  */
 
-public class IdentityFunction implements MathFunction{
+public class IdentityFunction implements MathFunction {
     /**
      * Применяет эту функцию к заданному аргументу.
      * Возвращает тот же аргумент.
