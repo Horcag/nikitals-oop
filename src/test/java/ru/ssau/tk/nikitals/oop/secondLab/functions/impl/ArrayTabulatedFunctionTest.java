@@ -29,6 +29,16 @@ class ArrayTabulatedFunctionTest {
     }
 
     @Test
+    void testConstructorWithFunction_v1() {
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(source, 10.0,  1.0, 10);
+        assertEquals(10, function.getCount());
+        assertEquals(1.0, function.getX(0));
+        assertEquals(10.0, function.getX(9));
+        assertEquals(1.0, function.getY(0));
+
+    }
+
+    @Test
     void getCount() {
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(5, function.getCount());
