@@ -1,25 +1,27 @@
 package ru.ssau.tk.nikitals.oop.secondLab.functions.impl;
 
 import ru.ssau.tk.nikitals.oop.secondLab.functions.core.AbstractTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.core.Insertable;
 import ru.ssau.tk.nikitals.oop.secondLab.functions.core.MathFunction;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.core.Removable;
 
 import java.util.Arrays;
 
 /**
  * Класс, представляющий табулированную функцию, реализованную с использованием массивов.
  */
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
-    private final double[] xValues;
-    private final double[] yValues;
-    private final int count;
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
+    double[] xValues;
+    double[] yValues;
+    private int count;
 
     /**
-     * Конструктор, принимающий массивы x и y значений.
+     * Конструктор, принимающий массивы {@code x} и {@code y} значений.
      *
-     * @param xValues массив значений x
-     * @param yValues массив значений y
-     * @throws IllegalArgumentException если длина массивов меньше 1 или массивы имеют разную длину,
-     *                                  или значения x не упорядочены по возрастанию
+     * @param xValues массив значений {@code  x}
+     * @param yValues массив значений {@code y}
+     * @throws IllegalArgumentException если длина массивов меньше <b>1</b> или массивы имеют разную длину,
+     *                                  или значения {@code xValues} не упорядочены по возрастанию, или имеют повторяющиеся элементы
      */
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         if (xValues.length < 1) {
@@ -31,7 +33,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
         for (int i = 1; i < xValues.length; i++) {
             if (xValues[i] <= xValues[i - 1]) {
-                throw new IllegalArgumentException("xValues are not in ascending order.");
+                throw new IllegalArgumentException("xValues are not in ascending order or have repeating elements.");
             }
         }
         this.xValues = Arrays.copyOf(xValues, xValues.length);
@@ -46,7 +48,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
      * @param xFrom  начальное значение диапазона
      * @param xTo    конечное значение диапазона
      * @param count  количество точек табуляции
-     * @throws IllegalArgumentException если количество точек меньше 1
+     * @throws IllegalArgumentException если количество точек меньше <b>1</b>
      */
     public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         if (count < 1) {
@@ -76,40 +78,89 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
         }
     }
 
+    /**
+     * Метод, увеличивающий размер массивов {@code xValues} и {@code yValues} вдвое или до значения {@code minCapacity},
+     * если текущий размер умноженный на <b>2</b> меньше {@code minCapacity}.
+     *
+     * @param minCapacity минимальная вместимость массивов
+     */
+    private void ensureCapacity(int minCapacity) {
+        if (minCapacity > xValues.length) {
+            int newCapacity = Math.max(minCapacity, xValues.length * 2);
+            xValues = Arrays.copyOf(xValues, newCapacity);
+            yValues = Arrays.copyOf(yValues, newCapacity);
+        }
+    }
+
+    @Override
+    public void insert(double x, double y) {
+        int index = Arrays.binarySearch(xValues, 0, count, x);
+        if (index >= 0) {
+            yValues[index] = y;
+        } else {
+            int insertIndex = -index - 1;
+            ensureCapacity(count + 1);
+            if (insertIndex != count) {
+                System.arraycopy(xValues, insertIndex, xValues, insertIndex + 1, count - insertIndex);
+                System.arraycopy(yValues, insertIndex, yValues, insertIndex + 1, count - insertIndex);
+            }
+            xValues[insertIndex] = x;
+            yValues[insertIndex] = y;
+            count++;
+        }
+    }
+
+    /**
+     * @throws IllegalStateException если пытаемся удалить последний элемент функции
+     * @throws IndexOutOfBoundsException если индекс меньше <b>0</b> или больше количества точек
+     */
+    @Override
+    public void remove(int index) {
+        if (count == 1) {
+            throw new IllegalStateException("Can't remove last element of function.");
+        }
+        if (index < 0 || index >= count) {
+            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+        }
+        System.arraycopy(xValues, index + 1, xValues, index, count - index - 1);
+        System.arraycopy(yValues, index + 1, yValues, index, count - index - 1);
+        count--;
+    }
+
     @Override
     public int getCount() {
         return count;
     }
 
     /**
-     * @throws IllegalArgumentException если индекс меньше 0 или больше количества точек
+     * @throws IndexOutOfBoundsException если индекс меньше <b>0</b> или больше количества точек
      */
     @Override
     public double getX(int index) {
         if (index < 0 || index >= count) {
-            throw new IllegalArgumentException("Index out of bounds.");
+            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
         }
         return xValues[index];
     }
 
     /**
-     * @throws IllegalArgumentException если индекс меньше 0 или больше количества точек
+     * @throws IndexOutOfBoundsException если индекс меньше <b>0</b> или больше количества точек
      */
     @Override
     public double getY(int index) {
         if (index < 0 || index >= count) {
-            throw new IllegalArgumentException("Index out of bounds.");
+            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
         }
         return yValues[index];
     }
 
     /**
-     * @throws IllegalArgumentException если индекс меньше 0 или больше количества точек
+     * @throws IndexOutOfBoundsException если индекс меньше <b>0</b> или больше количества точек
      */
     @Override
     public void setY(int index, double value) {
         if (index < 0 || index >= count) {
-            throw new IllegalArgumentException("Index out of bounds.");
+            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
         }
         yValues[index] = value;
     }
@@ -152,7 +203,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
         if (x == xValues[count - 1]) { // 5.?
             return count - 1;
         }
-        for (int i = 0; i < count-1; i++) {
+        for (int i = 0; i < count - 1; i++) {
             if (x < xValues[i + 1]) {
                 return i;
             }

@@ -1,5 +1,6 @@
 package ru.ssau.tk.nikitals.oop.secondLab.functions.impl;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.ssau.tk.nikitals.oop.secondLab.functions.core.MathFunction;
 
@@ -10,11 +11,16 @@ class ArrayTabulatedFunctionTest {
     private final double[] yValues = {2.0, 4.0, 6.0, 8.0, 10.0};
     private final double[] singleXValue = {2.0};
     private final double[] singleYValue = {4.0};
+    ArrayTabulatedFunction function;
     private final MathFunction source = new SqrFunction();
+
+    @BeforeEach
+    void setUp() {
+        function = new ArrayTabulatedFunction(xValues, yValues);
+    }
 
     @Test
     void testConstructorWithArrays() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(5, function.getCount());
     }
 
@@ -30,7 +36,7 @@ class ArrayTabulatedFunctionTest {
 
     @Test
     void testConstructorWithFunction_v1() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(source, 10.0,  1.0, 10);
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(source, 10.0, 1.0, 10);
         assertEquals(10, function.getCount());
         assertEquals(1.0, function.getX(0));
         assertEquals(10.0, function.getX(9));
@@ -40,34 +46,29 @@ class ArrayTabulatedFunctionTest {
 
     @Test
     void getCount() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(5, function.getCount());
     }
 
     @Test
     void getX() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(1.0, function.getX(0));
         assertEquals(5.0, function.getX(4));
     }
 
     @Test
     void getY() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(2.0, function.getY(0));
         assertEquals(10.0, function.getY(4));
     }
 
     @Test
     void setY() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         function.setY(0, 3.0);
         assertEquals(3.0, function.getY(0));
     }
 
     @Test
     void indexOfX() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(0, function.indexOfX(1.0));
         assertEquals(3, function.indexOfX(4.0));
         assertEquals(-1, function.indexOfX(6.0));
@@ -75,7 +76,6 @@ class ArrayTabulatedFunctionTest {
 
     @Test
     void indexOfY() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(0, function.indexOfY(2.0));
         assertEquals(4, function.indexOfY(10.0));
         assertEquals(-1, function.indexOfY(12.0));
@@ -83,19 +83,16 @@ class ArrayTabulatedFunctionTest {
 
     @Test
     void leftBound() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(1.0, function.leftBound());
     }
 
     @Test
     void rightBound() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(5.0, function.rightBound());
     }
 
     @Test
     void floorIndexOfX() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(0, function.floorIndexOfX(1.0));
         assertEquals(0, function.floorIndexOfX(1.5));
         assertEquals(1, function.floorIndexOfX(2.0));
@@ -111,7 +108,6 @@ class ArrayTabulatedFunctionTest {
 
     @Test
     void extrapolateLeft() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(0.0, function.extrapolateLeft(0.0));
         assertEquals(-2.0, function.extrapolateLeft(-1.0));
         assertEquals(-4.0, function.extrapolateLeft(-2.0));
@@ -119,7 +115,6 @@ class ArrayTabulatedFunctionTest {
 
     @Test
     void extrapolateRight() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(12.0, function.extrapolateRight(6.0));
         assertEquals(14.0, function.extrapolateRight(7.0));
         assertEquals(16.0, function.extrapolateRight(8.0));
@@ -127,7 +122,6 @@ class ArrayTabulatedFunctionTest {
 
     @Test
     void apply() {
-        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
         assertEquals(2.0, function.apply(1.0));
         assertEquals(4.0, function.apply(2.0));
         assertEquals(6.0, function.apply(3.0));
@@ -177,4 +171,72 @@ class ArrayTabulatedFunctionTest {
         assertEquals(4.0, function.interpolate(2.0, 0));
     }
 
+    @Test
+    void testInsertExistingX() {
+        function.insert(3.0, 7.0);
+        assertEquals(3.0, function.getX(2));
+        assertEquals(7.0, function.getY(2));
+        assertEquals(5, function.getCount());
+    }
+    @Test
+    void testInsertAtBeginning() {
+        function.insert(0.5, 1.0);
+        assertEquals(0.5, function.getX(0));
+        assertEquals(1.0, function.getY(0));
+        assertEquals(6, function.getCount());
+    }
+
+    @Test
+    void testInsertInMiddle() {
+        function.insert(3.5, 7.0);
+        assertEquals(7.0, function.getY(3));
+        assertEquals(3.5, function.getX(3));
+        assertEquals(6, function.getCount());
+    }
+
+    @Test
+    void testInsertAtEnd() {
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+        function.insert(6.0, 12.0);
+        int count = function.getCount();
+        assertEquals(6.0, function.getX(count - 1));
+        assertEquals(12.0, function.getY(count - 1));
+        assertEquals(6, count);
+    }
+
+    @Test
+    void testRemoveFromBeginning() {
+        function.remove(0);
+        assertEquals(4, function.getCount());
+        assertEquals(2.0, function.getX(0));
+        assertEquals(4.0, function.getY(0));
+    }
+
+    @Test
+    void testRemoveFromEnd() {
+        function.remove(4);
+        assertEquals(4, function.getCount());
+        assertEquals(4.0, function.getX(3));
+        assertEquals(8.0, function.getY(3));
+    }
+
+    @Test
+    void testRemoveFromMiddle() {
+        function.remove(2);
+        assertEquals(4, function.getCount());
+        assertEquals(4.0, function.getX(2));
+        assertEquals(8.0, function.getY(2));
+    }
+
+    @Test
+    void testRemoveLastElement() {
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(new double[]{1.0}, new double[]{2.0});
+        assertThrows(IllegalStateException.class, () -> function.remove(0));
+    }
+
+    @Test
+    void testRemoveWithInvalidIndex() {
+        assertThrows(IndexOutOfBoundsException.class, () -> function.remove(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> function.remove(5));
+    }
 }

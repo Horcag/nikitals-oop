@@ -10,6 +10,7 @@ import static java.lang.Math.pow;
 public class SqrFunction implements MathFunction {
     /**
      * Применяет эту функцию к заданному аргументу.
+     * <p>
      * Возвращает квадрат аргумента.
      *
      * @param x аргумент функции

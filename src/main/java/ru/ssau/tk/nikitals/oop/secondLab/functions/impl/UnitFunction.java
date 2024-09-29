@@ -1,11 +1,11 @@
 package ru.ssau.tk.nikitals.oop.secondLab.functions.impl;
 
 /**
- * Класс, представляющий функцию, которая всегда возвращает единицу.
+ * Класс, представляющий функцию, которая всегда возвращает {@code 1}.
  */
 public class UnitFunction extends ConstantFunction {
     /**
-     * Конструктор, создающий функцию, возвращающую единицу.
+     * Конструктор, создающий функцию, возвращающую {@code 0}.
      */
     public UnitFunction() {
         super(1);

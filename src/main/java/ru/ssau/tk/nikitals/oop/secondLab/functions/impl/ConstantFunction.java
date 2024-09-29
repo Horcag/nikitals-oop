@@ -19,6 +19,7 @@ public class ConstantFunction implements MathFunction {
 
     /**
      * Применяет эту функцию к заданному аргументу.
+     * <p>
      * Возвращает константное значение.
      *
      * @param x аргумент функции (не используется)

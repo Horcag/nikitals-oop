@@ -9,6 +9,7 @@ import ru.ssau.tk.nikitals.oop.secondLab.functions.core.MathFunction;
 public class IdentityFunction implements MathFunction {
     /**
      * Применяет эту функцию к заданному аргументу.
+     * <p>
      * Возвращает тот же аргумент.
      *
      * @param x аргумент функции

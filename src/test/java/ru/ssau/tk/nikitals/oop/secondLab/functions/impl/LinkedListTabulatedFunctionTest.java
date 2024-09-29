@@ -1,5 +1,6 @@
 package ru.ssau.tk.nikitals.oop.secondLab.functions.impl;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.ssau.tk.nikitals.oop.secondLab.functions.core.MathFunction;
 
@@ -11,11 +12,15 @@ class LinkedListTabulatedFunctionTest {
     private final double[] singleXValue = {2.0};
     private final double[] singleYValue = {4.0};
     private final MathFunction source = new SqrFunction();
+    private LinkedListTabulatedFunction function;
 
+    @BeforeEach
+    void setUp() {
+        function = new LinkedListTabulatedFunction(xValues, yValues);
+    }
 
     @Test
     void testConstructorWithArrays() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(5, function.getCount());
         assertEquals(1.0, function.getX(0));
         assertEquals(5.0, function.getX(4));
@@ -62,34 +67,29 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void getCount() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(5, function.getCount());
     }
 
     @Test
     void getX() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(1.0, function.getX(0));
         assertEquals(5.0, function.getX(4));
     }
 
     @Test
     void getY() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(2.0, function.getY(0));
         assertEquals(10.0, function.getY(4));
     }
 
     @Test
     void setY() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         function.setY(0, 3.0);
         assertEquals(3.0, function.getY(0));
     }
 
     @Test
     void indexOfX() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(0, function.indexOfX(1.0));
         assertEquals(3, function.indexOfX(4.0));
         assertEquals(-1, function.indexOfX(6.0));
@@ -97,7 +97,6 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void indexOfY() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(0, function.indexOfY(2.0));
         assertEquals(4, function.indexOfY(10.0));
         assertEquals(-1, function.indexOfY(12.0));
@@ -105,19 +104,16 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void leftBound() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(1.0, function.leftBound());
     }
 
     @Test
     void rightBound() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(5.0, function.rightBound());
     }
 
     @Test
     void floorIndexOfX() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(0, function.floorIndexOfX(1.0));
         assertEquals(0, function.floorIndexOfX(1.5));
         assertEquals(1, function.floorIndexOfX(2.0));
@@ -133,7 +129,6 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void extrapolateLeft() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(0.0, function.extrapolateLeft(0.0));
         assertEquals(-2.0, function.extrapolateLeft(-1.0));
         assertEquals(-4.0, function.extrapolateLeft(-2.0));
@@ -141,7 +136,6 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void extrapolateRight() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(12.0, function.extrapolateRight(6.0));
         assertEquals(14.0, function.extrapolateRight(7.0));
         assertEquals(16.0, function.extrapolateRight(8.0));
@@ -149,7 +143,6 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void interpolate() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(2.0, function.interpolate(1.0, function.floorIndexOfX(1.0)));
         assertEquals(4.0, function.interpolate(2.0, function.floorIndexOfX(2.0)));
         assertEquals(6.0, function.interpolate(3.0, function.floorIndexOfX(3.0)));
@@ -200,7 +193,6 @@ class LinkedListTabulatedFunctionTest {
 
     @Test
     void testApply() {
-        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(2.0, function.apply(1.0));
         assertEquals(10.0, function.apply(5.0));
         assertEquals(6.0, function.apply(3.0));
@@ -208,4 +200,83 @@ class LinkedListTabulatedFunctionTest {
         assertEquals(0.0, function.apply(0.0));
         assertEquals(12.0, function.apply(6.0));
     }
+
+    @Test
+    void testInsertIntoEmptyList() {
+        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(new double[]{}, new double[]{});
+        function.insert(1.0, 2.0);
+        assertEquals(1, function.getCount());
+        assertEquals(1.0, function.getX(0));
+        assertEquals(2.0, function.getY(0));
+    }
+
+    @Test
+    void testInsertAtBeginning() {
+        function.insert(0.5, 1.0);
+        assertEquals(6, function.getCount());
+        assertEquals(0.5, function.getX(0));
+        assertEquals(1.0, function.getY(0));
+    }
+
+    @Test
+    void testInsertAtEnd() {
+        function.insert(6.0, 12.0);
+        assertEquals(6, function.getCount());
+        assertEquals(6.0, function.getX(5));
+        assertEquals(12.0, function.getY(5));
+    }
+
+    @Test
+    void testInsertInMiddle() {
+        function.insert(2.5, 5.0);
+        assertEquals(6, function.getCount());
+        assertEquals(2.5, function.getX(2));
+        assertEquals(5.0, function.getY(2));
+    }
+
+    @Test
+    void testUpdateExistingNode() {
+        function.insert(3.0, 7.0);
+        assertEquals(5, function.getCount());
+        assertEquals(3.0, function.getX(2));
+        assertEquals(7.0, function.getY(2));
+    }
+
+    @Test
+    void testRemoveFromBeginning() {
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+        function.remove(0);
+        assertEquals(4, function.getCount());
+        assertEquals(2.0, function.getX(0));
+        assertEquals(4.0, function.getY(0));
+    }
+
+    @Test
+    void testRemoveFromEnd() {
+        function.remove(4);
+        assertEquals(4, function.getCount());
+        assertEquals(4.0, function.getX(3));
+        assertEquals(8.0, function.getY(3));
+    }
+
+    @Test
+    void testRemoveFromMiddle() {
+        function.remove(2);
+        assertEquals(4, function.getCount());
+        assertEquals(4.0, function.getX(2));
+        assertEquals(8.0, function.getY(2));
+    }
+
+    @Test
+    void testRemoveEmptyElement() {
+        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(new double[]{}, new double[]{});
+        assertThrows(IndexOutOfBoundsException.class, () -> function.remove(0));
+    }
+
+    @Test
+    void testRemoveWithInvalidIndex() {
+        assertThrows(IndexOutOfBoundsException.class, () -> function.remove(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> function.remove(5));
+    }
+
 }
