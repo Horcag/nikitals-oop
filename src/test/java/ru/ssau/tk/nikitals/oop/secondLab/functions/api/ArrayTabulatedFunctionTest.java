@@ -1,4 +1,4 @@
-package ru.ssau.tk.nikitals.oop.secondLab.functions.core;
+package ru.ssau.tk.nikitals.oop.secondLab.functions.api;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

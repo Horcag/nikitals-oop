@@ -2,7 +2,9 @@ package ru.ssau.tk.nikitals.oop.secondLab.functions.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.ssau.tk.nikitals.oop.secondLab.functions.core.MathFunction;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.api.MathFunction;
+
+import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -178,6 +180,7 @@ class ArrayTabulatedFunctionTest {
         assertEquals(7.0, function.getY(2));
         assertEquals(5, function.getCount());
     }
+
     @Test
     void testInsertAtBeginning() {
         function.insert(0.5, 1.0);
@@ -238,5 +241,118 @@ class ArrayTabulatedFunctionTest {
     void testRemoveWithInvalidIndex() {
         assertThrows(IndexOutOfBoundsException.class, () -> function.remove(-1));
         assertThrows(IndexOutOfBoundsException.class, () -> function.remove(5));
+    }
+
+    @Test
+    void testArrayTabulatedFunctionConstructorXFromEqualsXTo() {
+        MathFunction source = new SqrFunction();
+        double xFrom = 3.0;
+        double xTo = 3.0;
+        int count = 5;
+
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(source, xFrom, xTo, count);
+
+        assertEquals(count, function.getCount());
+        for (int i = 0; i < count; i++) {
+            assertEquals(xFrom, function.getX(i), 0.0);
+            assertEquals(source.apply(xFrom), function.getY(i), 0.0);
+        }
+    }
+
+    @Test
+    void testGetXIndexOutOfBounds() {
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+
+        assertThrows(IndexOutOfBoundsException.class, () -> function.getX(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> function.getX(function.getCount()));
+    }
+
+    @Test
+    void testConstructorWithEmptyArray() {
+        double[] emptyXValues = {};
+        double[] yValues = {};
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(emptyXValues, yValues));
+    }
+
+    @Test
+    void testConstructorWithDifferentLengthArrays() {
+        double[] xValues = {1.0, 2.0};
+        double[] yValues = {1.0};
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues, yValues));
+    }
+
+    @Test
+    void testConstructorWithUnorderedXValues() {
+        double[] xValues = {1.0, 3.0, 2.0};
+        double[] yValues = {1.0, 3.0, 2.0};
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues, yValues));
+    }
+
+    @Test
+    void testConstructorWithRepeatingXValues() {
+        double[] xValues = {1.0, 2.0, 2.0};
+        double[] yValues = {1.0, 2.0, 2.0};
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues, yValues));
+    }
+    @Test
+    void testConstructorWithInvalidCount() {
+        MathFunction source = x -> x;
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(source, 0, 1, 0));
+    }
+
+    @Test
+    void testGetYWithInvalidIndex() {
+        assertThrows(IndexOutOfBoundsException.class, () -> function.getY(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> function.getY(6));
+    }
+
+    @Test
+    void testSetYWithInvalidIndex() {
+        assertThrows(IndexOutOfBoundsException.class, () -> function.setY(-1, 5.0));
+        assertThrows(IndexOutOfBoundsException.class, () -> function.setY(6, 5.0));
+    }
+    @Test
+    void testFloorIndexOfXLessThanFirstElement() {
+        double[] xValues = {1.0, 2.0, 3.0};
+        double[] yValues = {2.0, 4.0, 6.0};
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+
+        assertEquals(0, function.floorIndexOfX(0.5));
+    }
+
+    @Test
+    void testFloorIndexOfXEqualToFirstElement() {
+        double[] xValues = {1.0, 2.0, 3.0};
+        double[] yValues = {2.0, 4.0, 6.0};
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+
+        assertEquals(0, function.floorIndexOfX(1.0));
+    }
+
+    @Test
+    void testFloorIndexOfXBetweenElements() {
+        double[] xValues = {1.0, 2.0, 3.0};
+        double[] yValues = {2.0, 4.0, 6.0};
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+
+        assertEquals(1, function.floorIndexOfX(2.5));
+    }
+
+    @Test
+    void testFloorIndexOfXEqualToLastElement() {
+        double[] xValues = {1.0, 2.0, 3.0};
+        double[] yValues = {2.0, 4.0, 6.0};
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+
+        assertEquals(2, function.floorIndexOfX(3.0));
+    }
+
+    @Test
+    void testFloorIndexOfXGreaterThanLastElement() {
+        double[] xValues = {1.0, 2.0, 3.0};
+        double[] yValues = {2.0, 4.0, 6.0};
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+
+        assertEquals(3, function.floorIndexOfX(4.0));
     }
 }

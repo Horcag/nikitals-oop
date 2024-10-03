@@ -1,9 +1,9 @@
 package ru.ssau.tk.nikitals.oop.secondLab.functions.impl;
 
-import ru.ssau.tk.nikitals.oop.secondLab.functions.core.AbstractTabulatedFunction;
-import ru.ssau.tk.nikitals.oop.secondLab.functions.core.Insertable;
-import ru.ssau.tk.nikitals.oop.secondLab.functions.core.MathFunction;
-import ru.ssau.tk.nikitals.oop.secondLab.functions.core.Removable;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.api.AbstractTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.api.Insertable;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.api.MathFunction;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.api.Removable;
 
 /**
  * Класс, представляющий табулированную функцию, хранящую значения в связном списке.
@@ -52,9 +52,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
      * @throws IndexOutOfBoundsException если индекс меньше <b>0</b> или больше количества узлов
      */
     private Node getNode(int index) {
-        if (index < 0 || index >= count) {
-            throw new IndexOutOfBoundsException("Index is out of bounds: " + index);
-        }
         Node node = head;
         if (index > count / 2) {
             node = head.prev;
@@ -202,7 +199,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     @Override
     public double getX(int index) {
         if (index < 0 || index >= count) {
-            throw new IllegalArgumentException("Index is out of bounds.");
+            throw new IndexOutOfBoundsException("Index is out of bounds: " + index);
         }
         return getNode(index).x;
     }
@@ -210,7 +207,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     @Override
     public double getY(int index) {
         if (index < 0 || index >= count) {
-            throw new IllegalArgumentException("Index is out of bounds.");
+            throw new IndexOutOfBoundsException("Index is out of bounds: " + index);
         }
         return getNode(index).y;
     }
@@ -218,7 +215,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     @Override
     public void setY(int index, double value) {
         if (index < 0 || index >= count) {
-            throw new IllegalArgumentException("Index is out of bounds");
+            throw new IndexOutOfBoundsException("Index is out of bounds: " + index);
         }
         getNode(index).y = value;
     }

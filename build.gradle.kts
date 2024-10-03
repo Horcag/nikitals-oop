@@ -41,7 +41,7 @@ tasks.test {
 tasks.jacocoTestReport {
     reports {
         xml.required = true
-        csv.required = false
+        csv.required = true
         html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
     }
     dependsOn(tasks.test) // tests are required to run before generating the report

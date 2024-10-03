@@ -1,6 +1,6 @@
 package ru.ssau.tk.nikitals.oop.secondLab.functions.impl;
 
-import ru.ssau.tk.nikitals.oop.secondLab.functions.core.MathFunction;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.api.MathFunction;
 
 /**
  * Класс, представляющий функцию идентичности.

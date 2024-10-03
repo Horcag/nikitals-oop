@@ -1,4 +1,4 @@
-package ru.ssau.tk.nikitals.oop.secondLab.functions.core;
+package ru.ssau.tk.nikitals.oop.secondLab.functions.api;
 
 /**
  * Интерфейс для удаления значений из табулированной функции.

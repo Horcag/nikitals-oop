@@ -1,9 +1,9 @@
 package ru.ssau.tk.nikitals.oop.secondLab.functions.impl;
 
-import ru.ssau.tk.nikitals.oop.secondLab.functions.core.AbstractTabulatedFunction;
-import ru.ssau.tk.nikitals.oop.secondLab.functions.core.Insertable;
-import ru.ssau.tk.nikitals.oop.secondLab.functions.core.MathFunction;
-import ru.ssau.tk.nikitals.oop.secondLab.functions.core.Removable;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.api.AbstractTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.api.Insertable;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.api.MathFunction;
+import ru.ssau.tk.nikitals.oop.secondLab.functions.api.Removable;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package ru.ssau.tk.nikitals.oop.secondLab.functions.core;
+package ru.ssau.tk.nikitals.oop.secondLab.functions.api;
 
 import ru.ssau.tk.nikitals.oop.secondLab.functions.impl.CompositeFunction;
 
