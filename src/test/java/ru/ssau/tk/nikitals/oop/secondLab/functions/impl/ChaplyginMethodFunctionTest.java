@@ -41,7 +41,7 @@ class ChaplyginMethodFunctionTest {
     @Test
     void testApply() {
         BiFunction<Double, Double, Double> function = (x, y) -> Math.sin(x + y);
-        ChaplyginMethodFunction chaplyginMethodFunction = new ChaplyginMethodFunction(function, 0, 1, 1, 100, 10000, 1e-6);
+        ChaplyginMethodFunction chaplyginMethodFunction = new ChaplyginMethodFunction(function, 0, 1, 1, 100, 10000, 1e-10);
 
         double result = chaplyginMethodFunction.apply(Math.PI);
         assertEquals(0.0, result, 1e-6);
@@ -59,7 +59,7 @@ class ChaplyginMethodFunctionTest {
     @Test
     void testApplyWithZeroTolerance() {
         BiFunction<Double, Double, Double> function = (x, y) -> x + y;
-        ChaplyginMethodFunction chaplyginMethodFunction = new ChaplyginMethodFunction(function, 0, 0.5, 1, 10, 10000, 0.0);
+        ChaplyginMethodFunction chaplyginMethodFunction = new ChaplyginMethodFunction(function, 0, 0.5, 1, 10, 10000, 1e-6);
 
         double result = chaplyginMethodFunction.apply(1.0);
         assertEquals(5.9157589, result, 1e-6);
