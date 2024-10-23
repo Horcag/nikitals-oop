@@ -1,5 +1,8 @@
 package ru.ssau.tk.nikitals.oop.functions.impl;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import ru.ssau.tk.nikitals.oop.exceptions.DifferentLengthOfArraysException;
 import ru.ssau.tk.nikitals.oop.exceptions.ArrayIsNotSortedException;
@@ -10,6 +13,8 @@ import ru.ssau.tk.nikitals.oop.functions.api.Insertable;
 import ru.ssau.tk.nikitals.oop.functions.api.MathFunction;
 import ru.ssau.tk.nikitals.oop.functions.api.Removable;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -17,9 +22,16 @@ import java.util.NoSuchElementException;
 /**
  * Класс, представляющий табулированную функцию, реализованную с использованием массивов.
  */
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
+    @Serial
+    private static final long serialVersionUID = 3077297132301647066L;
+
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     double[] xValues;
+
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     double[] yValues;
+
     private int count;
 
     /**
@@ -32,7 +44,8 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
      * @throws ArrayIsNotSortedException          если массив {@code xValues} не отсортирован
      * @throws ArrayHasDuplicateElementsException если массив {@code xValues} содержит дубликаты
      */
-    public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+    @JsonCreator
+    public ArrayTabulatedFunction(@JsonProperty("xValues") double[] xValues, @JsonProperty("yValues") double[] yValues) {
         if (xValues.length < 2) {
             throw new IllegalArgumentException("Array length less than 2.");
         }

@@ -10,6 +10,8 @@ import ru.ssau.tk.nikitals.oop.functions.api.Insertable;
 import ru.ssau.tk.nikitals.oop.functions.api.MathFunction;
 import ru.ssau.tk.nikitals.oop.functions.api.Removable;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -17,8 +19,13 @@ import java.util.NoSuchElementException;
 /**
  * Класс, представляющий табулированную функцию, хранящую значения в связном списке.
  */
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
-    private static class Node {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
+    @Serial
+    private static final long serialVersionUID = -2529849605610265778L;
+
+    private static class Node implements Serializable {
+        @Serial
+        private static final long serialVersionUID = -1761771530979886282L;
         Node next;
         Node prev;
         double x;

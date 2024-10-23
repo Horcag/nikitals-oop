@@ -5,9 +5,19 @@ import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
 
 import java.util.Iterator;
 
+/**
+ * Класс {@code UnmodifiableTabulatedFunction} является неизменяемой оберткой над табулированной функцией.
+ * Он реализует интерфейс {@link TabulatedFunction} и переопределяет метод {@link #setY(int, double)}}.
+ * Если попытаться изменить значения функции, то метод {@link #setY(int, double)} выбрасывает исключение {@link UnsupportedOperationException}.
+ */
 public class UnmodifiableTabulatedFunction implements TabulatedFunction {
     private final TabulatedFunction function;
 
+    /**
+     * Конструктор, принимающий табулированную функцию.
+     *
+     * @param function табулированная функция.
+     */
     public UnmodifiableTabulatedFunction(TabulatedFunction function) {
         this.function = function;
     }

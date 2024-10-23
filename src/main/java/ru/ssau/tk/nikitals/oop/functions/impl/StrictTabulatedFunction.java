@@ -5,9 +5,19 @@ import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
 
 import java.util.Iterator;
 
+/**
+ * Класс {@code StrictTabulatedFunction} является строгой оберткой над табулированной функцией.
+ * Он реализует интерфейс {@link TabulatedFunction} и переопределяет метод {@link  #apply(double)}}.
+ * Если функция не содержит значение {@code x}, то метод {@link #apply(double)} выбрасывает исключение {@link  UnsupportedOperationException}.
+ */
 public class StrictTabulatedFunction implements TabulatedFunction {
     protected final TabulatedFunction function;
 
+    /**
+     * Конструктор, принимающий табулированную функцию.
+     *
+     * @param function табулированная функция.
+     */
     public StrictTabulatedFunction(TabulatedFunction function) {
         this.function = function;
     }

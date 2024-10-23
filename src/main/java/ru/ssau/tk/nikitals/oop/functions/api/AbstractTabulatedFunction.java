@@ -3,6 +3,7 @@ package ru.ssau.tk.nikitals.oop.functions.api;
 import ru.ssau.tk.nikitals.oop.exceptions.ArrayHasDuplicateElementsException;
 import ru.ssau.tk.nikitals.oop.exceptions.ArrayIsNotSortedException;
 import ru.ssau.tk.nikitals.oop.exceptions.DifferentLengthOfArraysException;
+import ru.ssau.tk.nikitals.oop.functions.impl.Point;
 
 /**
  * Абстрактный класс, представляющий табулированную функцию.
@@ -118,4 +119,13 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction, Ma
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getClass().getSimpleName()).append(" size = ").append(getCount()).append("\n");
+        for (Point point : this) {
+            stringBuilder.append("[").append(point.x).append("; ").append(point.y).append("]\n");
+        }
+        return stringBuilder.toString();
+    }
 }
