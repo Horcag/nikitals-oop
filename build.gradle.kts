@@ -30,7 +30,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation(kotlin("stdlib-jdk8"))
-    testImplementation("org.testng:testng:7.10.2")
     implementation("com.thoughtworks.xstream:xstream:1.4.20")
     implementation("com.fasterxml.jackson.core:jackson-core:2.18.0")
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.18.0")

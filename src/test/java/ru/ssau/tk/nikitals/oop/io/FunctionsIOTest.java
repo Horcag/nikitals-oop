@@ -1,8 +1,8 @@
 package ru.ssau.tk.nikitals.oop.io;
 
 import org.junit.jupiter.api.Test;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
 import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.functions.impl.ArrayTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.functions.impl.LinkedListTabulatedFunction;
@@ -17,22 +17,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class FunctionsIOTest {
     private static final Path TEMP_DIR = Paths.get("temp");
 
-    @BeforeClass
-    public void setUp() throws IOException {
+    @BeforeAll
+    static void setUp() throws IOException {
         if (!Files.exists(TEMP_DIR)) {
             Files.createDirectory(TEMP_DIR);
         }
     }
 
-    @AfterClass
-    public void tearDown() throws IOException {
+    @AfterAll
+    static void tearDown() throws IOException {
         Files.walk(TEMP_DIR)
                 .map(Path::toFile)
                 .forEach(File::delete);
     }
 
     @Test
-    public void testSerializeAndDeserializeArrayTabulatedFunction() throws IOException, ClassNotFoundException {
+    void testSerializeAndDeserializeArrayTabulatedFunction() throws IOException, ClassNotFoundException {
         double[] xValues = {0.0, 0.5, 1.0};
         double[] yValues = {0.0, 0.25, 1.0};
         TabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
@@ -51,7 +51,7 @@ class FunctionsIOTest {
     }
 
     @Test
-    public void testSerializeAndDeserializeLinkedListTabulatedFunction() throws IOException, ClassNotFoundException {
+    void testSerializeAndDeserializeLinkedListTabulatedFunction() throws IOException, ClassNotFoundException {
         double[] xValues = {0.0, 0.5, 1.0};
         double[] yValues = {0.0, 0.25, 1.0};
         TabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
@@ -75,7 +75,7 @@ class FunctionsIOTest {
         double[] yValues = {0.0, 0.25, 1.0};
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
 
-        Path filePath = Paths.get("temp/arrayFunction.xml");
+        Path filePath = TEMP_DIR.resolve("arrayFunction.xml");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile()))) {
             FunctionsIO.serializeXml(writer, function);
         }
@@ -94,7 +94,7 @@ class FunctionsIOTest {
         double[] yValues = {0.0, 0.25, 1.0};
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
 
-        Path filePath = Paths.get("temp/arrayFunction.json");
+        Path filePath = TEMP_DIR.resolve("arrayFunction.json");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile()))) {
             FunctionsIO.serializeJson(writer, function);
         }
