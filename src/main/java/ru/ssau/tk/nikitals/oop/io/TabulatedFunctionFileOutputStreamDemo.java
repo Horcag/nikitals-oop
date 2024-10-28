@@ -7,8 +7,11 @@ import ru.ssau.tk.nikitals.oop.functions.impl.LinkedListTabulatedFunction;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class TabulatedFunctionFileOutputStream {
+public class TabulatedFunctionFileOutputStreamDemo {
+    private static final Logger logger = Logger.getLogger(TabulatedFunctionFileOutputStreamDemo.class.getName());
     public static void main(String[] args) {
         double[] xValues = {0.0, 0.5, 1.0};
         double[] yValues = {0.0, 0.25, 1.0};
@@ -23,7 +26,7 @@ public class TabulatedFunctionFileOutputStream {
             FunctionsIO.writeTabulatedFunction(linkedListOutputStream, linkedListFunction);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "An error occurred during writing to file", e);
         }
     }
 }

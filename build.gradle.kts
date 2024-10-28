@@ -55,6 +55,13 @@ tasks.jacocoTestReport {
         html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
     }
     dependsOn(tasks.test) // tests are required to run before generating the report
+    classDirectories.setFrom(files(classDirectories.files.map {
+        fileTree(it) {
+            exclude(
+                "ru/ssau/tk/nikitals/oop/io/*Demo.*",
+            )
+        }
+    }))
 }
 
 tasks.jacocoTestCoverageVerification {

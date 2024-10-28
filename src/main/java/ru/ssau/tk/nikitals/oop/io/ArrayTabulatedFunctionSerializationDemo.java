@@ -5,8 +5,11 @@ import ru.ssau.tk.nikitals.oop.functions.impl.ArrayTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.operations.impl.TabulatedDifferentialOperator;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ArrayTabulatedFunctionSerialization {
+public class ArrayTabulatedFunctionSerializationDemo {
+    private static final Logger logger = Logger.getLogger(ArrayTabulatedFunctionSerializationDemo.class.getName());
     public static void main(String[] args) {
         double[] xValues = {0.0, 0.5, 1.0};
         double[] yValues = {0.0, 0.25, 1.0};
@@ -21,7 +24,7 @@ public class ArrayTabulatedFunctionSerialization {
             FunctionsIO.serialize(outputStream, firstDerivative);
             FunctionsIO.serialize(outputStream, secondDerivative);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "An error occurred during serialization", e);
         }
 
         try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream("output/serialized array functions.bin"))) {
@@ -33,7 +36,7 @@ public class ArrayTabulatedFunctionSerialization {
             System.out.println(deserializedFirstDerivative.toString());
             System.out.println(deserializedSecondDerivative.toString());
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "An error occurred during deserialization", e);
         }
     }
 }

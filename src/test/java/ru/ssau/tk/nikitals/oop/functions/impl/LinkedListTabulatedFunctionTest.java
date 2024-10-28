@@ -10,6 +10,7 @@ import ru.ssau.tk.nikitals.oop.exceptions.DifferentLengthOfArraysException;
 
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -452,6 +453,7 @@ class LinkedListTabulatedFunctionTest {
     }
 
     @Test
+    @SuppressWarnings("WhileLoopReplaceableByForEach")
     void testIteratorWithWhile() {
         int i = 0;
         Iterator<Point> iterator = function.iterator();
@@ -467,6 +469,15 @@ class LinkedListTabulatedFunctionTest {
         for (Point point : function) {
             assertEquals(function.getX(i++), point.x);
         }
+    }
+
+    @Test
+    void testIteratorNoSuchElementException() {
+        Iterator<Point> iterator = function.iterator();
+        while (iterator.hasNext()) {
+            iterator.next();
+        }
+        assertThrows(NoSuchElementException.class, iterator::next);
     }
 
 }

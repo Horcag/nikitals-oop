@@ -1,5 +1,7 @@
 package ru.ssau.tk.nikitals.oop.exceptions;
 
+import java.io.Serial;
+
 /**
  * {@code DifferentLengthOfArraysException} является исключением времени выполнения,
  * которое выбрасывается при обнаружении массивов разной длины.
@@ -14,6 +16,9 @@ package ru.ssau.tk.nikitals.oop.exceptions;
  * во время выполнения метода или конструктора и распространяться за их пределы.
  */
 public class DifferentLengthOfArraysException extends RuntimeException {
+
+    @Serial
+    private static final long serialVersionUID = -4533886957215809684L;
 
     /**
      * Создает новое исключение разной длины массивов с {@code null} в качестве

@@ -1,4 +1,4 @@
-package ru.ssau.tk.nikitals.oop.functions.factory;
+package ru.ssau.tk.nikitals.oop.functions.factory.api;
 
 import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.functions.impl.StrictTabulatedFunction;

@@ -1,5 +1,7 @@
 package ru.ssau.tk.nikitals.oop.exceptions;
 
+import java.io.Serial;
+
 /**
  * {@code InterpolationException} является исключением времени выполнения,
  * которое выбрасывается при возникновении ошибки в процессе интерполяции.
@@ -13,6 +15,9 @@ package ru.ssau.tk.nikitals.oop.exceptions;
  * во время выполнения метода или конструктора и распространяться за их пределы.
  */
 public class InterpolationException extends RuntimeException {
+    @Serial
+    private static final long serialVersionUID = -8209937333453924149L;
+
     /**
      * Создает новое исключение интерполяции с {@code null} в качестве
      * сообщения. Причина не инициализируется и может быть впоследствии

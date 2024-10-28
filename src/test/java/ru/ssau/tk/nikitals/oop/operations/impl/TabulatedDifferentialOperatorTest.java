@@ -3,6 +3,8 @@ package ru.ssau.tk.nikitals.oop.operations.impl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.functions.factory.impl.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.functions.factory.impl.LinkedListTabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.functions.impl.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,5 +41,20 @@ class TabulatedDifferentialOperatorTest {
         assertEquals(5.0, points[1].y, 1e-5);
         assertEquals(7.0, points[2].y, 1e-5);
         assertEquals(7.0, points[3].y, 1e-5); // Last value should be same as second last
+    }
+
+    @Test
+    void testApplyException() {
+        TabulatedDifferentialOperator operator = new TabulatedDifferentialOperator(new ArrayTabulatedFunctionFactory());
+        assertThrows(UnsupportedOperationException.class, () -> operator.apply(1.0));
+    }
+
+    @Test
+    void testConstructorWithoutFactory() {
+        TabulatedDifferentialOperator operator = new TabulatedDifferentialOperator();
+        assertInstanceOf(ArrayTabulatedFunctionFactory.class, operator.getFactory());
+        LinkedListTabulatedFunctionFactory factory = new LinkedListTabulatedFunctionFactory();
+        operator.setFactory(factory);
+        assertSame(factory, operator.getFactory());
     }
 }

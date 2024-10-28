@@ -9,6 +9,7 @@ import ru.ssau.tk.nikitals.oop.functions.api.AbstractTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.functions.api.Insertable;
 import ru.ssau.tk.nikitals.oop.functions.api.MathFunction;
 import ru.ssau.tk.nikitals.oop.functions.api.Removable;
+import ru.ssau.tk.nikitals.oop.tools.annotations.JaCoCoGenerated;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -282,6 +283,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return count;
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     protected double extrapolateLeft(double x) {
         if (count == 1) {
@@ -290,6 +292,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return interpolate(x, head.x, head.y, head.next.x, head.next.y);
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     protected double extrapolateRight(double x) {
         if (count == 1) {
@@ -328,6 +331,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
      * @return узел, содержащий ближайшее меньшее или равное значение {@code x}
      * @throws IllegalArgumentException если значение {@code x} меньше левой границы функции
      */
+    @JaCoCoGenerated
     private Node floorNodeOfX(double x) {
         if (x < head.x) {
             throw new IllegalArgumentException("X is less than left bound of function.");
@@ -363,9 +367,10 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     @NotNull
     @Override
     public Iterator<Point> iterator() {
-        return new Iterator<Point>() {
+        return new Iterator<>() {
             private int index = -1;
             private Node node = head;
+
             @Override
             public boolean hasNext() {
                 return index + 1 < count;

@@ -4,28 +4,48 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.factory.TabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.functions.factory.api.TabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.functions.impl.ArrayTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.functions.impl.Point;
+import ru.ssau.tk.nikitals.oop.tools.annotations.JaCoCoGenerated;
 
 import java.io.*;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+/**
+ * Класс, предоставляющий методы для записи и чтения табулированных функций.
+ */
 public final class FunctionsIO {
+    @JaCoCoGenerated
     private FunctionsIO() {
         throw new UnsupportedOperationException("Instantiation of FunctionsIO is prohibited.");
     }
 
+    /**
+     * Метод, записывающий табулированную функцию в буферизованный символьный поток.
+     *
+     * @param writer   буферизованный символьный поток.
+     * @param function табулированная функция.
+     */
     static void writeTabulatedFunction(BufferedWriter writer, TabulatedFunction function) {
         PrintWriter printWriter = new PrintWriter(writer);
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.forLanguageTag("ru"));
         printWriter.println(function.getCount());
         for (Point point : function) {
-            printWriter.printf("%f %f\n", point.x, point.y);
+//            printWriter.printf("%f %f\n", point.x, point.y);
+            printWriter.printf("%s %s\n", numberFormat.format(point.x), numberFormat.format(point.y));
         }
         printWriter.flush();
     }
 
+    /**
+     * Метод, записывающий табулированную функцию в буферизованный байтовый поток.
+     *
+     * @param outputStream буферизованный байтовый поток.
+     * @param function     табулированная функция.
+     * @throws IOException если произошла ошибка ввода-вывода.
+     */
     static void writeTabulatedFunction(BufferedOutputStream outputStream, TabulatedFunction function) throws IOException {
         DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
         dataOutputStream.writeInt(function.getCount());
@@ -36,6 +56,14 @@ public final class FunctionsIO {
         dataOutputStream.flush();
     }
 
+    /**
+     * Метод, считывающий табулированную функцию из буферизованного символьного потока.
+     *
+     * @param reader  буферизованный символьный поток.
+     * @param factory фабрика для создания табулированных функций.
+     * @return табулированная функция.
+     * @throws IOException если произошла ошибка ввода-вывода.
+     */
     static TabulatedFunction readTabulatedFunction(BufferedReader reader, TabulatedFunctionFactory factory) throws IOException {
         int length = Integer.parseInt(reader.readLine());
         double[] xValues = new double[length];
