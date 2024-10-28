@@ -4,18 +4,25 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.AfterAll;
 import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.functions.factory.impl.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.functions.impl.ArrayTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.functions.impl.LinkedListTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.functions.impl.Point;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FunctionsIOTest {
     private static final Path TEMP_DIR = Paths.get("temp");
+    double[] xValues = {0.0, 0.5, 1.0};
+    double[] yValues = {0.0, 0.25, 1.0};
 
     @BeforeAll
     static void setUp() throws IOException {
@@ -26,15 +33,69 @@ class FunctionsIOTest {
 
     @AfterAll
     static void tearDown() throws IOException {
-        Files.walk(TEMP_DIR)
-                .map(Path::toFile)
-                .forEach(File::delete);
+        try (Stream<Path> paths = Files.walk(TEMP_DIR)) {
+            paths.sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(file -> {
+                        if (!file.delete()) {
+                            System.err.println("Can't delete file: " + file);
+                        }
+                    });
+        }
+    }
+
+    @Test
+    void testWriteAndReadTabulatedFunctionBufferedWriter() throws IOException {
+        TabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+        Path filePath = TEMP_DIR.resolve("function.txt");
+
+        try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+            FunctionsIO.writeTabulatedFunction(writer, function);
+        }
+
+        TabulatedFunction readFunction;
+        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+            readFunction = FunctionsIO.readTabulatedFunction(reader, new ArrayTabulatedFunctionFactory());
+        }
+
+        assertEquals(function.getCount(), readFunction.getCount());
+        Iterator<Point> expectedPoints = function.iterator();
+        Iterator<Point> actualPoints = readFunction.iterator();
+        for (int i = 0; i < function.getCount(); i++) {
+            Point expected = expectedPoints.next();
+            Point actual = actualPoints.next();
+            assertEquals(expected.x, actual.x);
+            assertEquals(expected.y, actual.y);
+        }
+    }
+
+    @Test
+    void testWriteAndReadTabulatedFunctionBufferedOutputStream() throws IOException {
+        TabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
+        Path filePath = TEMP_DIR.resolve("function.bin");
+
+        try (BufferedOutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(filePath))) {
+            FunctionsIO.writeTabulatedFunction(outputStream, function);
+        }
+
+        TabulatedFunction readFunction;
+        try (BufferedInputStream inputStream = new BufferedInputStream(Files.newInputStream(filePath))) {
+            readFunction = FunctionsIO.readTabulatedFunction(inputStream, new ArrayTabulatedFunctionFactory());
+        }
+
+        assertEquals(function.getCount(), readFunction.getCount());
+        Iterator<Point> expectedPoints = function.iterator();
+        Iterator<Point> actualPoints = readFunction.iterator();
+        for (int i = 0; i < function.getCount(); i++) {
+            Point expected = expectedPoints.next();
+            Point actual = actualPoints.next();
+            assertEquals(expected.x, actual.x);
+            assertEquals(expected.y, actual.y);
+        }
     }
 
     @Test
     void testSerializeAndDeserializeArrayTabulatedFunction() throws IOException, ClassNotFoundException {
-        double[] xValues = {0.0, 0.5, 1.0};
-        double[] yValues = {0.0, 0.25, 1.0};
         TabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
 
         Path filePath = TEMP_DIR.resolve("arrayFunction.bin");
@@ -52,8 +113,6 @@ class FunctionsIOTest {
 
     @Test
     void testSerializeAndDeserializeLinkedListTabulatedFunction() throws IOException, ClassNotFoundException {
-        double[] xValues = {0.0, 0.5, 1.0};
-        double[] yValues = {0.0, 0.25, 1.0};
         TabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
 
         Path filePath = TEMP_DIR.resolve("linkedListFunction.bin");
@@ -71,8 +130,6 @@ class FunctionsIOTest {
 
     @Test
     void testSerializeAndDeserializeXml() throws IOException {
-        double[] xValues = {0.0, 0.5, 1.0};
-        double[] yValues = {0.0, 0.25, 1.0};
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
 
         Path filePath = TEMP_DIR.resolve("arrayFunction.xml");
@@ -90,8 +147,6 @@ class FunctionsIOTest {
 
     @Test
     void testSerializeAndDeserializeJson() throws IOException {
-        double[] xValues = {0.0, 0.5, 1.0};
-        double[] yValues = {0.0, 0.25, 1.0};
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
 
         Path filePath = TEMP_DIR.resolve("arrayFunction.json");

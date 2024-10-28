@@ -32,7 +32,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     double[] yValues;
 
-    private int count;
+     private int count;
 
     /**
      * Конструктор, принимающий массивы {@code x} и {@code y} значений.

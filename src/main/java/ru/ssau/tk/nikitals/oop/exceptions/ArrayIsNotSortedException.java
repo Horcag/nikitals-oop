@@ -1,5 +1,7 @@
 package ru.ssau.tk.nikitals.oop.exceptions;
 
+import java.io.Serial;
+
 /**
  * {@code ArrayIsNotSortedException} является исключением времени выполнения,
  * которое выбрасывается при обнаружении неотсортированного массива.
@@ -14,6 +16,9 @@ package ru.ssau.tk.nikitals.oop.exceptions;
  * во время выполнения метода или конструктора и распространяться за их пределы.
  */
 public class ArrayIsNotSortedException extends RuntimeException {
+    @Serial
+    private static final long serialVersionUID = -6295877370622648523L;
+
     /**
      * Создает новое исключение неотсортированного массива с {@code null} в качестве
      * сообщения. Причина не инициализируется и может быть впоследствии

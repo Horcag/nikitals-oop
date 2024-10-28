@@ -2,10 +2,11 @@ package ru.ssau.tk.nikitals.oop.functions.factory;
 
 import org.junit.jupiter.api.Test;
 import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.functions.factory.api.TabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.functions.impl.ArrayTabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.impl.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.functions.factory.impl.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.functions.impl.LinkedListTabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.impl.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.functions.factory.impl.LinkedListTabulatedFunctionFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,8 +19,8 @@ class TabulatedFunctionFactoryTest {
     void testCreate() {
         TabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
         TabulatedFunctionFactory linkedListFactory = new LinkedListTabulatedFunctionFactory();
-        assertTrue(arrayFactory.create(xValues, yValues) instanceof ArrayTabulatedFunction);
-        assertTrue(linkedListFactory.create(xValues, yValues) instanceof LinkedListTabulatedFunction);
+        assertEquals(arrayFactory.create(xValues, yValues).getClass(), ArrayTabulatedFunction.class);
+        assertEquals(linkedListFactory.create(xValues, yValues).getClass(),  LinkedListTabulatedFunction.class);
     }
 
 

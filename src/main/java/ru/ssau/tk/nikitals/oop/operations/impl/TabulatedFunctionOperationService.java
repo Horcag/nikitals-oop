@@ -2,8 +2,8 @@ package ru.ssau.tk.nikitals.oop.operations.impl;
 
 import ru.ssau.tk.nikitals.oop.exceptions.InconsistentFunctionsException;
 import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.factory.TabulatedFunctionFactory;
-import ru.ssau.tk.nikitals.oop.functions.impl.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.functions.factory.api.TabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.functions.factory.impl.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.functions.impl.Point;
 
 /**

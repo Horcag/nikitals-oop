@@ -9,6 +9,7 @@ import ru.ssau.tk.nikitals.oop.exceptions.InterpolationException;
 import ru.ssau.tk.nikitals.oop.functions.api.MathFunction;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -366,6 +367,7 @@ class ArrayTabulatedFunctionTest {
     }
 
     @Test
+    @SuppressWarnings("WhileLoopReplaceableByForEach")
     void testIteratorWithWhile() {
         int i = 0;
         Iterator<Point> iterator = function.iterator();
@@ -381,5 +383,14 @@ class ArrayTabulatedFunctionTest {
         for (Point point : function) {
             assertEquals(function.getX(i++), point.x);
         }
+    }
+
+    @Test
+    void testIteratorNoSuchElementException() {
+        Iterator<Point> iterator = function.iterator();
+        while (iterator.hasNext()) {
+            iterator.next();
+        }
+        assertThrows(NoSuchElementException.class, iterator::next);
     }
 }

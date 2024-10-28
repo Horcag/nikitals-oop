@@ -3,6 +3,8 @@ package ru.ssau.tk.nikitals.oop.operations.impl;
 import org.junit.jupiter.api.Test;
 import ru.ssau.tk.nikitals.oop.exceptions.InconsistentFunctionsException;
 import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.functions.factory.impl.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.functions.factory.impl.LinkedListTabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.functions.impl.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -116,6 +118,15 @@ class TabulatedFunctionOperationServiceTest {
         TabulatedFunctionOperationService service = new TabulatedFunctionOperationService(new LinkedListTabulatedFunctionFactory());
 
         assertThrows(InconsistentFunctionsException.class, () -> service.sum(arrayFunction, linkedListFunction));
+    }
+
+    @Test
+    void testConstructorWithoutFactory() {
+        TabulatedFunctionOperationService service = new TabulatedFunctionOperationService();
+        assertEquals(ArrayTabulatedFunctionFactory.class, service.getFactory().getClass());
+        LinkedListTabulatedFunctionFactory factory = new LinkedListTabulatedFunctionFactory();
+        service.setFactory(factory);
+        assertSame(factory, service.getFactory());
     }
 
 }

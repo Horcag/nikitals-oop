@@ -4,9 +4,13 @@ import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.functions.impl.LinkedListTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.operations.impl.TabulatedDifferentialOperator;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.io.*;
 
-public class LinkedListTabulatedFunctionSerialization {
+public class LinkedListTabulatedFunctionSerializationDemo {
+    private static final Logger logger = Logger.getLogger(LinkedListTabulatedFunctionSerializationDemo.class.getName());
+
     public static void main(String[] args) {
         double[] xValues = {0.0, 0.5, 1.0};
         double[] yValues = {0.0, 0.25, 1.0};
@@ -21,7 +25,7 @@ public class LinkedListTabulatedFunctionSerialization {
             FunctionsIO.serialize(outputStream, firstDerivative);
             FunctionsIO.serialize(outputStream, secondDerivative);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "An error occurred during serialization", e);
         }
 
         try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream("output/serialized linked list functions.bin"))) {
@@ -33,7 +37,7 @@ public class LinkedListTabulatedFunctionSerialization {
             System.out.println(deserializedFirstDerivative.toString());
             System.out.println(deserializedSecondDerivative.toString());
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "An error occurred during deserialization", e);
         }
     }
 }

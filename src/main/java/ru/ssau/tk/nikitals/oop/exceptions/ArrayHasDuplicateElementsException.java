@@ -1,5 +1,7 @@
 package ru.ssau.tk.nikitals.oop.exceptions;
 
+import java.io.Serial;
+
 /**
  * {@code ArrayHasDuplicateElementsException} является исключением времени выполнения,
  * которое выбрасывается при обнаружении дублирующихся элементов в массиве.
@@ -14,6 +16,9 @@ package ru.ssau.tk.nikitals.oop.exceptions;
  * во время выполнения метода или конструктора и распространяться за их пределы.
  */
 public class ArrayHasDuplicateElementsException extends RuntimeException {
+
+    @Serial
+    private static final long serialVersionUID = -331072537981546969L;
 
     /**
      * Создает новое исключение дублирующихся элементов в массиве с {@code null} в качестве
