@@ -10,7 +10,7 @@ public class ConstantFunction implements MathFunction {
 
     /**
      * Конструктор, принимающий значение константы.
-     *
+     * <p>Значение константы не может быть изменено после создания объекта.
      * @param constant значение константы
      */
     public ConstantFunction(double constant) {

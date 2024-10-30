@@ -145,6 +145,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         }
     }
 
+    @JaCoCoGenerated
     @Override
     public void insert(double x, double y) {
         if (count == 0) {
@@ -309,7 +310,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             if (node.x == x) {
                 return node.y;
             }
-            if (!(node.x <= x && x <= node.next.x)) {
+            if (!(node.x <= x && x < node.next.x)) {
                 throw new InterpolationException("X is out of bounds of interpolation.");
             }
         } else {
@@ -331,7 +332,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
      * @return узел, содержащий ближайшее меньшее или равное значение {@code x}
      * @throws IllegalArgumentException если значение {@code x} меньше левой границы функции
      */
-    @JaCoCoGenerated
     private Node floorNodeOfX(double x) {
         if (x < head.x) {
             throw new IllegalArgumentException("X is less than left bound of function.");

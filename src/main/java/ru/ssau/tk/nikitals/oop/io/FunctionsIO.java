@@ -14,7 +14,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * Класс, предоставляющий методы для записи и чтения табулированных функций.
+ * Класс {@code FunctionsIO} предоставляет методы для ввода-вывода, сериализации и десериализации табулированных функций.
  */
 public final class FunctionsIO {
     @JaCoCoGenerated
@@ -23,7 +23,7 @@ public final class FunctionsIO {
     }
 
     /**
-     * Метод, записывающий табулированную функцию в буферизованный символьный поток.
+     * Записывает табулированную функцию в символьный поток.
      *
      * @param writer   буферизованный символьный поток.
      * @param function табулированная функция.
@@ -40,7 +40,7 @@ public final class FunctionsIO {
     }
 
     /**
-     * Метод, записывающий табулированную функцию в буферизованный байтовый поток.
+     * Записывает табулированную функцию в байтовый поток.
      *
      * @param outputStream буферизованный байтовый поток.
      * @param function     табулированная функция.
@@ -57,7 +57,7 @@ public final class FunctionsIO {
     }
 
     /**
-     * Метод, считывающий табулированную функцию из буферизованного символьного потока.
+     * Считывает табулированную функцию из символьного потока.
      *
      * @param reader  буферизованный символьный поток.
      * @param factory фабрика для создания табулированных функций.
@@ -82,6 +82,14 @@ public final class FunctionsIO {
         return factory.create(xValues, yValues);
     }
 
+    /**
+     * Считывает табулированную функцию из байтового потока.
+     *
+     * @param inputStream буферизованный байтовый поток.
+     * @param factory     фабрика для создания табулированных функций.
+     * @return табулированная функция.
+     * @throws IOException если произошла ошибка ввода-вывода.
+     */
     static TabulatedFunction readTabulatedFunction(BufferedInputStream inputStream, TabulatedFunctionFactory factory) throws IOException {
         DataInputStream dataInputStream = new DataInputStream(inputStream);
         int length = dataInputStream.readInt();
@@ -94,35 +102,77 @@ public final class FunctionsIO {
         return factory.create(xValues, yValues);
     }
 
+    /**
+     * Сериализует табулированную функцию в байтовый поток.
+     *
+     * @param outputStream буферизованный байтовый поток.
+     * @param function     табулированная функция.
+     * @throws IOException если произошла ошибка ввода-вывода.
+     */
     static void serialize(BufferedOutputStream outputStream, TabulatedFunction function) throws IOException {
         ObjectOutputStream out = new ObjectOutputStream(outputStream);
         out.writeObject(function);
         out.flush();
     }
 
+    /**
+     * Десериализует табулированную функцию из байтового потока.
+     *
+     * @param inputStream буферизованный байтовый поток.
+     * @return табулированная функция.
+     * @throws IOException            если произошла ошибка ввода-вывода.
+     * @throws ClassNotFoundException если класс не найден.
+     */
     static TabulatedFunction deserialize(BufferedInputStream inputStream) throws IOException, ClassNotFoundException {
         ObjectInputStream in = new ObjectInputStream(inputStream);
         return (TabulatedFunction) in.readObject();
     }
 
+    /**
+     * Сериализует табулированную функцию в XML-формат.
+     *
+     * @param writer   буферизованный символьный поток.
+     * @param function табулированная функция.
+     * @throws IOException если произошла ошибка ввода-вывода.
+     */
     static void serializeXml(BufferedWriter writer, ArrayTabulatedFunction function) throws IOException {
         XStream xStream = new XStream();
         writer.write(xStream.toXML(function));
         writer.flush();
     }
 
+    /**
+     * Десериализует табулированную функцию из XML-формата.
+     *
+     * @param reader буферизованный символьный поток.
+     * @return табулированная функция.
+     */
     static ArrayTabulatedFunction deserializeXml(BufferedReader reader) {
         XStream xStream = new XStream();
         xStream.addPermission(AnyTypePermission.ANY);
         return (ArrayTabulatedFunction) xStream.fromXML(reader);
     }
 
+    /**
+     * Сериализует табулированную функцию в JSON-формат.
+     *
+     * @param writer   буферизованный символьный поток.
+     * @param function табулированная функция.
+     * @throws IOException если произошла ошибка ввода-вывода.
+     */
     static void serializeJson(BufferedWriter writer, ArrayTabulatedFunction function) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         writer.write(objectMapper.writeValueAsString(function));
         writer.flush();
     }
 
+    /**
+     * Десериализует табулированную функцию из JSON-формата.
+     *
+     * @param reader буферизованный символьный поток.
+     * @return табулированная функция.
+     * @throws IOException если произошла ошибка ввода-вывода.
+     */
     static ArrayTabulatedFunction deserializeJson(BufferedReader reader) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readerFor(ArrayTabulatedFunction.class).readValue(reader);

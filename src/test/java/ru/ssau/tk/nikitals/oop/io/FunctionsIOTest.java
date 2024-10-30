@@ -158,8 +158,17 @@ class FunctionsIOTest {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()))) {
             deserializedFunction = FunctionsIO.deserializeJson(reader);
         }
-
         assertEquals(function.toString(), deserializedFunction.toString());
     }
 
+    @Test
+    void testReadTabulatedFunctionThrowsIOException() {
+        String invalidInput = "3\n1,0 2.0\n2,0 3.0\ninvalid input";
+        BufferedReader reader = new BufferedReader(new StringReader(invalidInput));
+        ArrayTabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
+
+        assertThrows(IOException.class, () ->
+                FunctionsIO.readTabulatedFunction(reader, factory)
+        );
+    }
 }

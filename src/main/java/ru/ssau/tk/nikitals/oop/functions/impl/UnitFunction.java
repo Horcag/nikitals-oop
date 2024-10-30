@@ -5,7 +5,7 @@ package ru.ssau.tk.nikitals.oop.functions.impl;
  */
 public class UnitFunction extends ConstantFunction {
     /**
-     * Конструктор, создающий функцию, возвращающую {@code 0}.
+     * Конструктор, создающий функцию, возвращающую {@code 1}.
      */
     public UnitFunction() {
         super(1);

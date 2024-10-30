@@ -9,13 +9,19 @@ import ru.ssau.tk.nikitals.oop.exceptions.ArrayHasDuplicateElementsException;
 import ru.ssau.tk.nikitals.oop.exceptions.DifferentLengthOfArraysException;
 
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LinkedListTabulatedFunctionTest {
+    private static final Logger logger = Logger.getLogger(LinkedListTabulatedFunctionTest.class.getName());
     private final double[] xValues = {1.0, 2.0, 3.0, 4.0, 5.0};
     private final double[] yValues = {2.0, 4.0, 6.0, 8.0, 10.0};
     private final double[] singleXValue = {2.0};
@@ -174,11 +180,15 @@ class LinkedListTabulatedFunctionTest {
     void testInterpolateOutOfBoundsLower() {
         assertThrows(IllegalArgumentException.class, () -> function.interpolate(0.5, function.floorIndexOfX(0.5)));
         assertThrows(InterpolationException.class, () -> function.interpolate(0.5, 0));
+        assertThrows(InterpolationException.class, () -> function.interpolate(0.5, -1));
+        assertThrows(InterpolationException.class, () -> function.interpolate(0, 1));
     }
 
     @Test
     void testInterpolateOutOfBoundsUpper() {
         assertThrows(InterpolationException.class, () -> function.interpolate(5.5, function.floorIndexOfX(5.5)));
+        assertDoesNotThrow(() -> function.interpolate(2.9, 1));
+        assertThrows(InterpolationException.class, () -> function.interpolate(3, 1));
     }
 
     @Test
@@ -237,6 +247,16 @@ class LinkedListTabulatedFunctionTest {
         assertEquals(1.0, function.getX(0));
         assertEquals(2.0, function.getY(0));
     }
+    @Test
+    void testInsertIntoSingleElementList() {
+        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(singleXValue, singleYValue);
+        function.insert(0.5, 1.0);
+        assertEquals(2, function.getCount());
+        assertEquals(0.5, function.getX(0));
+        assertEquals(1.0, function.getY(0));
+        assertEquals(2.0, function.getX(1));
+        assertEquals(4.0, function.getY(1));
+    }
 
     @Test
     void testInsertAtBeginning() {
@@ -268,6 +288,23 @@ class LinkedListTabulatedFunctionTest {
         assertEquals(5, function.getCount());
         assertEquals(3.0, function.getX(2));
         assertEquals(7.0, function.getY(2));
+    }
+
+    @Test
+    void testInsertMultipleElements() {
+        function.insert(1, 1);
+        function.insert(2, 2);
+        function.insert(3, 3);
+        function.insert(4, 4);
+        function.insert(5, 5);
+        assertEquals(5, function.getCount());
+        function.insert(0.5, 0.5);
+        function.insert(1.5, 1.5);
+        function.insert(2.5, 2.5);
+        function.insert(3.5, 3.5);
+        function.insert(4.5, 4.5);
+        function.insert(5.5, 5.5);
+        assertEquals(11, function.getCount());
     }
 
     @Test
@@ -480,4 +517,25 @@ class LinkedListTabulatedFunctionTest {
         assertThrows(NoSuchElementException.class, iterator::next);
     }
 
+    @Test
+    void testFloorNodeOfX() {
+        try {
+            Class<?> NodeClass = Class.forName("ru.ssau.tk.nikitals.oop.functions.impl.LinkedListTabulatedFunction$Node");
+            Field xField = NodeClass.getDeclaredField("x");
+
+            Method floorNodeOfXMethod = LinkedListTabulatedFunction.class.getDeclaredMethod("floorNodeOfX", double.class);
+            floorNodeOfXMethod.setAccessible(true);
+
+            InvocationTargetException exception = assertThrows(InvocationTargetException.class, () -> floorNodeOfXMethod.invoke(function, 0.5));
+            assertInstanceOf(IllegalArgumentException.class, exception.getCause());
+
+            assertEquals(1.0, xField.get(floorNodeOfXMethod.invoke(function, 1.0)));
+            assertEquals(2.0, xField.get(floorNodeOfXMethod.invoke(function, 2.5)));
+            assertEquals(5.0, xField.get(floorNodeOfXMethod.invoke(function, 5.0)));
+            assertEquals(5.0, xField.get(floorNodeOfXMethod.invoke(function, 5.5)));
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | ClassNotFoundException |
+                 NoSuchFieldException e) {
+            logger.log(Level.SEVERE, "An error occurred during test", e);
+        }
+    }
 }

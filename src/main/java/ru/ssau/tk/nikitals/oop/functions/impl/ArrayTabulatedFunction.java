@@ -27,10 +27,10 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     private static final long serialVersionUID = 3077297132301647066L;
 
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
-    double[] xValues;
+    private double[] xValues;
 
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
-    double[] yValues;
+    private double[] yValues;
 
      private int count;
 

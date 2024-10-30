@@ -8,12 +8,18 @@ import ru.ssau.tk.nikitals.oop.exceptions.DifferentLengthOfArraysException;
 import ru.ssau.tk.nikitals.oop.exceptions.InterpolationException;
 import ru.ssau.tk.nikitals.oop.functions.api.MathFunction;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArrayTabulatedFunctionTest {
+    private static final Logger logger = Logger.getLogger(ArrayTabulatedFunctionTest.class.getName());
     private final double[] xValues = {1.0, 2.0, 3.0, 4.0, 5.0};
     private final double[] yValues = {2.0, 4.0, 6.0, 8.0, 10.0};
     private final double[] singleXValue = {2.0};
@@ -140,7 +146,6 @@ class ArrayTabulatedFunctionTest {
     }
 
 
-
     @Test
     void testInsertExistingX() {
         function.insert(3.0, 7.0);
@@ -261,6 +266,7 @@ class ArrayTabulatedFunctionTest {
         double[] yValues = {1.0, 2.0, 2.0};
         assertThrows(ArrayHasDuplicateElementsException.class, () -> new ArrayTabulatedFunction(xValues, yValues));
     }
+
     @Test
     void testConstructorWithInvalidCount() {
         MathFunction source = x -> x;
@@ -278,6 +284,7 @@ class ArrayTabulatedFunctionTest {
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> function.setY(-1, 5.0));
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> function.setY(6, 5.0));
     }
+
     @Test
     void testFloorIndexOfXLessThanFirstElementException() {
         double[] xValues = {1.0, 2.0, 3.0};
@@ -392,5 +399,38 @@ class ArrayTabulatedFunctionTest {
             iterator.next();
         }
         assertThrows(NoSuchElementException.class, iterator::next);
+    }
+
+    @Test
+    void testEnsureCapacity() {
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(source, 1.0, 5.0, 5);
+        try {
+            Method ensureCapacityMethod = ArrayTabulatedFunction.class.getDeclaredMethod("ensureCapacity", int.class);
+            ensureCapacityMethod.setAccessible(true);
+
+            Field xValuesField = ArrayTabulatedFunction.class.getDeclaredField("xValues");
+            xValuesField.setAccessible(true);
+
+            Field yValuesField = ArrayTabulatedFunction.class.getDeclaredField("yValues");
+            yValuesField.setAccessible(true);
+
+            assertEquals(5, function.getCount());
+            assertEquals(5, ((double[]) xValuesField.get(function)).length);
+            assertEquals(5, ((double[]) yValuesField.get(function)).length);
+
+            ensureCapacityMethod.invoke(function, 5);
+
+            assertEquals(5, ((double[]) xValuesField.get(function)).length);
+            assertEquals(5, ((double[]) yValuesField.get(function)).length);
+            assertEquals(5, function.getCount());
+
+            ensureCapacityMethod.invoke(function, 6);
+
+            assertEquals(10, ((double[]) xValuesField.get(function)).length);
+            assertEquals(10, ((double[]) yValuesField.get(function)).length);
+            assertEquals(5, function.getCount());
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
+            logger.log(Level.SEVERE, "Exception occurred", e);
+        }
     }
 }

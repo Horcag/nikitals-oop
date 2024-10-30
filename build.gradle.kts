@@ -59,6 +59,7 @@ tasks.jacocoTestReport {
         fileTree(it) {
             exclude(
                 "ru/ssau/tk/nikitals/oop/io/*Demo.*",
+                "ru/ssau/tk/nikitals/oop/concurrent/*Demo.*",
             )
         }
     }))

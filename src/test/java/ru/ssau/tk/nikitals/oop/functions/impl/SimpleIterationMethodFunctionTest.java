@@ -66,4 +66,20 @@ class SimpleIterationMethodFunctionTest {
         assertFalse(method.simpleIteration(0));
     }
 
+    @Test
+    void testSimpleIterationExceedsMaxBound() {
+        MathFunction function = x -> x + 1e11; // Function that will exceed maxBound
+        SimpleIterationMethodFunction method = new SimpleIterationMethodFunction(function, 1e-6, 1000, -1e10, 1e10);
+
+        assertFalse(method.simpleIteration(0));
+    }
+
+    @Test
+    void testSimpleIterationBelowMinBound() {
+        MathFunction function = x -> x - 1e11; // Function that will go below minBound
+        SimpleIterationMethodFunction method = new SimpleIterationMethodFunction(function, 1e-6, 1000, -1e10, 1e10);
+
+        assertFalse(method.simpleIteration(0));
+    }
+
 }
