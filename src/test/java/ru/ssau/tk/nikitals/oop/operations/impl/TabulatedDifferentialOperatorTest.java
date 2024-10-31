@@ -2,6 +2,7 @@ package ru.ssau.tk.nikitals.oop.operations.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.ssau.tk.nikitals.oop.concurrent.SynchronizedTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.functions.factory.impl.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.functions.factory.impl.LinkedListTabulatedFunctionFactory;
@@ -56,5 +57,31 @@ class TabulatedDifferentialOperatorTest {
         LinkedListTabulatedFunctionFactory factory = new LinkedListTabulatedFunctionFactory();
         operator.setFactory(factory);
         assertSame(factory, operator.getFactory());
+    }
+
+    @Test
+    public void testDeriveSynchronouslyWithNonSynchronizedFunction() {
+        TabulatedDifferentialOperator operator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
+        TabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
+
+        TabulatedFunction derivedFunction = operator.deriveSynchronously(function);
+
+        assertEquals(3.0, derivedFunction.getY(0), 1e-6);
+        assertEquals(5.0, derivedFunction.getY(1), 1e-6);
+        assertEquals(7.0, derivedFunction.getY(2), 1e-6);
+        assertEquals(7.0, derivedFunction.getY(3), 1e-6);
+    }
+
+    @Test
+    public void testDeriveSynchronouslyWithSynchronizedFunction() {
+        TabulatedDifferentialOperator operator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
+        TabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
+        TabulatedFunction synchronizedFunction = new SynchronizedTabulatedFunction(function);
+        TabulatedFunction derivedFunction = operator.deriveSynchronously(synchronizedFunction);
+
+        assertEquals(3.0, derivedFunction.getY(0), 1e-6);
+        assertEquals(5.0, derivedFunction.getY(1), 1e-6);
+        assertEquals(7.0, derivedFunction.getY(2), 1e-6);
+        assertEquals(7.0, derivedFunction.getY(3), 1e-6);
     }
 }

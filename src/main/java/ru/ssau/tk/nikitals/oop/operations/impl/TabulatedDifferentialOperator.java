@@ -1,5 +1,6 @@
 package ru.ssau.tk.nikitals.oop.operations.impl;
 
+import ru.ssau.tk.nikitals.oop.concurrent.SynchronizedTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.functions.factory.api.TabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.functions.factory.impl.ArrayTabulatedFunctionFactory;
@@ -48,6 +49,14 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
         xValues[points.length - 1] = points[points.length - 1].x;
         yValues[points.length - 1] = yValues[points.length - 2];
         return factory.create(xValues, yValues);
+    }
+
+    public TabulatedFunction deriveSynchronously(TabulatedFunction function) {
+        if (!(function instanceof SynchronizedTabulatedFunction)) {
+            function = new SynchronizedTabulatedFunction(function);
+        }
+        TabulatedFunction finalFunction = function;
+        return ((SynchronizedTabulatedFunction) function).doSynchronously(TabulatedDifferentialOperator.this::derive);
     }
 
     @Override

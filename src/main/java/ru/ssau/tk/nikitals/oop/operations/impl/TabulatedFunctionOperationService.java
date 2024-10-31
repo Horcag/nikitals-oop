@@ -7,7 +7,9 @@ import ru.ssau.tk.nikitals.oop.functions.factory.impl.ArrayTabulatedFunctionFact
 import ru.ssau.tk.nikitals.oop.functions.impl.Point;
 
 /**
- * Класс, реализующий операции над табулированными функциями.
+ * Класс {@code TabulatedFunctionOperationService} предоставляет методы для выполнения
+ * различных операций над табулированными функциями, таких как сложение, вычитание,
+ * умножение и деление. Класс использует фабрику для создания новых табулированных функций.
  */
 public class TabulatedFunctionOperationService {
     private interface BiOperation {
