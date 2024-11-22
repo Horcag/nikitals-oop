@@ -1,12 +1,12 @@
 package ru.ssau.tk.nikitals.oop.functions.factory;
 
 import org.junit.jupiter.api.Test;
-import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.factory.api.TabulatedFunctionFactory;
-import ru.ssau.tk.nikitals.oop.functions.impl.ArrayTabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.factory.impl.ArrayTabulatedFunctionFactory;
-import ru.ssau.tk.nikitals.oop.functions.impl.LinkedListTabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.factory.impl.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.factory.api.TabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.factory.impl.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.factory.impl.LinkedListTabulatedFunctionFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 

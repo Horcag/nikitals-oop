@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title>Редактирование функции</title>
+</head>
+<body>
+<h1>Редактирование функции</h1>
+<form action="#" th:action="@{/functions/{id}/edit(id=${function.id})}" method="post">
+    <label for="name">Название:</label>
+    <input type="text" id="name" name="name" th:value="${function.name}" required>
+    <br>
+    <label for="xValues">X значения (через запятую):</label>
+    <!--/*@thymesVar id="map" type="java.util.stream.map"*/-->
+    <input type="text" id="xValues" name="xValues" th:value="${xValues}" required>
+    <br>
+    <label for="yValues">Y значения (через запятую):</label>
+    <input type="text" id="yValues" name="yValues" th:value="${yValues}" required>
+    <br>
+    <button type="submit">Сохранить</button>
+</form>
+<a href="/functions">Вернуться к списку функций</a>
+</body>
+</html>

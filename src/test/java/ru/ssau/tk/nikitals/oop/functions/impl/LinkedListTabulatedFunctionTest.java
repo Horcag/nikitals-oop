@@ -2,11 +2,14 @@ package ru.ssau.tk.nikitals.oop.functions.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.ssau.tk.nikitals.oop.functions.api.MathFunction;
-import ru.ssau.tk.nikitals.oop.exceptions.InterpolationException;
-import ru.ssau.tk.nikitals.oop.exceptions.ArrayIsNotSortedException;
-import ru.ssau.tk.nikitals.oop.exceptions.ArrayHasDuplicateElementsException;
-import ru.ssau.tk.nikitals.oop.exceptions.DifferentLengthOfArraysException;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.MathFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.exceptions.InterpolationException;
+import ru.ssau.tk.nikitals.oop.core.domain.exceptions.ArrayIsNotSortedException;
+import ru.ssau.tk.nikitals.oop.core.domain.exceptions.ArrayHasDuplicateElementsException;
+import ru.ssau.tk.nikitals.oop.core.domain.exceptions.DifferentLengthOfArraysException;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.Point;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.SqrFunction;
 
 
 import java.lang.reflect.Field;
@@ -520,7 +523,7 @@ class LinkedListTabulatedFunctionTest {
     @Test
     void testFloorNodeOfX() {
         try {
-            Class<?> NodeClass = Class.forName("ru.ssau.tk.nikitals.oop.functions.impl.LinkedListTabulatedFunction$Node");
+            Class<?> NodeClass = Class.forName("ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction$Node");
             Field xField = NodeClass.getDeclaredField("x");
 
             Method floorNodeOfXMethod = LinkedListTabulatedFunction.class.getDeclaredMethod("floorNodeOfX", double.class);

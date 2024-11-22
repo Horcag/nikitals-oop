@@ -5,7 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.Point;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.UnmodifiableTabulatedFunction;
 
 import java.util.Iterator;
 

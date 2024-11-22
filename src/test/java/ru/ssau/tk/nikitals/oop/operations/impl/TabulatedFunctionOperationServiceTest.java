@@ -1,11 +1,14 @@
 package ru.ssau.tk.nikitals.oop.operations.impl;
 
 import org.junit.jupiter.api.Test;
-import ru.ssau.tk.nikitals.oop.exceptions.InconsistentFunctionsException;
-import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.factory.impl.ArrayTabulatedFunctionFactory;
-import ru.ssau.tk.nikitals.oop.functions.factory.impl.LinkedListTabulatedFunctionFactory;
-import ru.ssau.tk.nikitals.oop.functions.impl.*;
+import ru.ssau.tk.nikitals.oop.core.domain.exceptions.InconsistentFunctionsException;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.factory.impl.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.factory.impl.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.Point;
+import ru.ssau.tk.nikitals.oop.core.domain.operations.impl.TabulatedFunctionOperationService;
 
 import static org.junit.jupiter.api.Assertions.*;
 

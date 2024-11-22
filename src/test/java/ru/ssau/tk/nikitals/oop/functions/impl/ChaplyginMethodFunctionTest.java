@@ -1,13 +1,14 @@
 package ru.ssau.tk.nikitals.oop.functions.impl;
 
 import org.junit.jupiter.api.Test;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ChaplyginMethodFunction;
 
 import java.util.function.BiFunction;
 
 import static java.lang.Math.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static ru.ssau.tk.nikitals.oop.functions.impl.ChaplyginMethodFunction.derivative;
-import static ru.ssau.tk.nikitals.oop.functions.impl.ChaplyginMethodFunction.integrateSimpson;
+import static ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ChaplyginMethodFunction.derivative;
+import static ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ChaplyginMethodFunction.integrateSimpson;
 
 class ChaplyginMethodFunctionTest {
 

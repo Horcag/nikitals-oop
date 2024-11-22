@@ -1,11 +1,12 @@
 package ru.ssau.tk.nikitals.oop.operations.api;
 
 import org.junit.jupiter.api.Test;
-import ru.ssau.tk.nikitals.oop.functions.api.MathFunction;
-import ru.ssau.tk.nikitals.oop.functions.impl.SqrFunction;
-import ru.ssau.tk.nikitals.oop.operations.impl.LeftSteppingDifferentialOperator;
-import ru.ssau.tk.nikitals.oop.operations.impl.MiddleSteppingDifferentialOperator;
-import ru.ssau.tk.nikitals.oop.operations.impl.RightSteppingDifferentialOperator;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.MathFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.SqrFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.operations.api.SteppingDifferentialOperator;
+import ru.ssau.tk.nikitals.oop.core.domain.operations.impl.LeftSteppingDifferentialOperator;
+import ru.ssau.tk.nikitals.oop.core.domain.operations.impl.MiddleSteppingDifferentialOperator;
+import ru.ssau.tk.nikitals.oop.core.domain.operations.impl.RightSteppingDifferentialOperator;
 
 import static org.junit.jupiter.api.Assertions.*;
 

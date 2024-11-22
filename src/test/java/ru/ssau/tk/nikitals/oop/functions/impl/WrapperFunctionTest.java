@@ -2,7 +2,11 @@ package ru.ssau.tk.nikitals.oop.functions.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.StrictTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.UnmodifiableTabulatedFunction;
 
 import static org.junit.jupiter.api.Assertions.*;
 

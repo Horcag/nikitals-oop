@@ -1,9 +1,10 @@
 package ru.ssau.tk.nikitals.oop.concurrent;
 
 import org.junit.jupiter.api.Test;
-import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.impl.ArrayTabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.impl.SqrFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.concurrent.impl.IntegratedTask;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.SqrFunction;
 
 import static org.junit.jupiter.api.Assertions.*;
 

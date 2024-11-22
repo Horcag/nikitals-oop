@@ -26,18 +26,20 @@ repositories {
 
 dependencies {
     implementation("org.apache.commons:commons-compress:1.27.1")
-    implementation("org.springframework.boot:spring-boot-starter")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation(kotlin("stdlib-jdk8"))
     implementation("com.thoughtworks.xstream:xstream:1.4.20")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.18.0")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.18.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.0")
 
+    implementation("org.flywaydb:flyway-database-postgresql")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
-
-
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    runtimeOnly("org.postgresql:postgresql")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {
@@ -58,8 +60,7 @@ tasks.jacocoTestReport {
     classDirectories.setFrom(files(classDirectories.files.map {
         fileTree(it) {
             exclude(
-                "ru/ssau/tk/nikitals/oop/io/*Demo.*",
-                "ru/ssau/tk/nikitals/oop/concurrent/*Demo.*",
+                "ru/ssau/tk/nikitals/oop/**/*Demo.*",
             )
         }
     }))
@@ -77,4 +78,9 @@ tasks.jacocoTestCoverageVerification {
 
 tasks.check {
     dependsOn(tasks.jacocoTestCoverageVerification)
+}
+allprojects{
+    tasks.withType<JavaCompile> {
+        options.encoding = "UTF-8"
+    }
 }

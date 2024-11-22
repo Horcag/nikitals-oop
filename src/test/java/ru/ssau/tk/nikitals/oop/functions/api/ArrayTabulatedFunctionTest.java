@@ -3,6 +3,7 @@ package ru.ssau.tk.nikitals.oop.functions.api;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.AbstractTabulatedFunction;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

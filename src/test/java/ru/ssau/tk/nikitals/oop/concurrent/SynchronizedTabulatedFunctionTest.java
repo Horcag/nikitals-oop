@@ -2,9 +2,10 @@ package ru.ssau.tk.nikitals.oop.concurrent;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.impl.ArrayTabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.impl.Point;
+import ru.ssau.tk.nikitals.oop.core.domain.concurrent.impl.SynchronizedTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.Point;
 
 import java.util.Iterator;
 
@@ -98,19 +99,31 @@ class SynchronizedTabulatedFunctionTest {
         }
         assertThrows(IllegalStateException.class, iterator::next);
     }
+
     @Test
-    public void testSynchronizedFunction() throws InterruptedException {
-        double[] xValues = {1, 2, 3};
-        double[] yValues = {10, 20, 30};
-        TabulatedFunction function = new ArrayTabulatedFunction(xValues, yValues);
-        SynchronizedTabulatedFunction synchronizedFunction = new SynchronizedTabulatedFunction(function);
+    public void testDoSynchronouslyWithInteger() {
+        Integer result = synchronizedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount);
+        assertEquals(3, result);
+    }
 
-        Thread t1 = new Thread(() -> synchronizedFunction.setY(0, 40));
-        Thread t2 = new Thread(() -> assertEquals(40, synchronizedFunction.getY(0)));
+    @Test
+    public void testDoSynchronouslyWithDouble() {
+        Double result = synchronizedFunction.doSynchronously(syncFunc -> syncFunc.getX(0));
+        assertEquals(1.0, result);
+    }
 
-        t1.start();
-        t2.start();
-        t1.join();
-        t2.join();
+    @Test
+    public void testDoSynchronouslyWithVoid() {
+        synchronizedFunction.doSynchronously(syncFunc -> {
+            syncFunc.setY(0, 100.0);
+            return null;
+        });
+        assertEquals(100.0, synchronizedFunction.getY(0));
+    }
+
+    @Test
+    public void testDoSynchronouslyWithString() {
+        String result = synchronizedFunction.doSynchronously(syncFunc -> "Test String");
+        assertEquals("Test String", result);
     }
 }

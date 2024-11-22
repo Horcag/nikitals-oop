@@ -1,7 +1,8 @@
 package ru.ssau.tk.nikitals.oop.functions.impl;
 
 import org.junit.jupiter.api.Test;
-import ru.ssau.tk.nikitals.oop.functions.api.MathFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.MathFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.SimpleIterationMethodFunction;
 
 import static java.lang.Math.cos;
 import static org.junit.jupiter.api.Assertions.*;

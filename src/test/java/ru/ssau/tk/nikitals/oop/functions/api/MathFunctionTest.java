@@ -2,7 +2,8 @@ package ru.ssau.tk.nikitals.oop.functions.api;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.ssau.tk.nikitals.oop.functions.impl.*;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.MathFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

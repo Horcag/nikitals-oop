@@ -3,11 +3,12 @@ package ru.ssau.tk.nikitals.oop.io;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.AfterAll;
-import ru.ssau.tk.nikitals.oop.functions.api.TabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.factory.impl.ArrayTabulatedFunctionFactory;
-import ru.ssau.tk.nikitals.oop.functions.impl.ArrayTabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.impl.LinkedListTabulatedFunction;
-import ru.ssau.tk.nikitals.oop.functions.impl.Point;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.factory.impl.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.Point;
+import ru.ssau.tk.nikitals.oop.core.ports.io.FunctionsIO;
 
 import java.io.*;
 import java.nio.file.Files;

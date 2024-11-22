@@ -1,7 +1,8 @@
 package ru.ssau.tk.nikitals.oop.functions.api;
 
 import org.junit.jupiter.api.Test;
-import ru.ssau.tk.nikitals.oop.functions.impl.LinkedListTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.api.AbstractTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
 
 import static org.junit.jupiter.api.Assertions.*;
 
