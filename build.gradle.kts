@@ -28,7 +28,7 @@ dependencies {
     implementation("org.apache.commons:commons-compress:1.27.1")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation(kotlin("stdlib-jdk8"))
-    implementation("com.thoughtworks.xstream:xstream:1.4.20")
+    implementation("com.thoughtworks.xstream:xstream:1.4.21")
 
     implementation("org.flywaydb:flyway-database-postgresql")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
