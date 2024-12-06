@@ -1,10 +1,12 @@
 package ru.ssau.tk.nikitals.oop.core.ports.io.demo;
 
 import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.JaCoCoGenerated;
 import ru.ssau.tk.nikitals.oop.core.ports.io.FunctionsIO;
 
 import java.io.*;
 
+@JaCoCoGenerated
 public class ArrayTabulatedFunctionJsonDemo {
     public static void main(String[] args) {
         double[] xValues = {0.0, 0.5, 1.0};
@@ -18,7 +20,7 @@ public class ArrayTabulatedFunctionJsonDemo {
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader("output/arrayFunction.json"))) {
-            ArrayTabulatedFunction deserializedFunction = FunctionsIO.deserializeJson(reader);
+            ArrayTabulatedFunction deserializedFunction = FunctionsIO.deserializeJson(reader, ArrayTabulatedFunction.class);
             System.out.println(deserializedFunction.toString());
         } catch (IOException e) {
             e.printStackTrace();

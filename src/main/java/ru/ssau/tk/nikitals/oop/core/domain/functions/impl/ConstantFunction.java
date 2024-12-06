@@ -2,6 +2,7 @@ package ru.ssau.tk.nikitals.oop.core.domain.functions.impl;
 
 import lombok.Getter;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.MathFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.MathFunctionInfo;
 
 /**
  * Класс, представляющий константную функцию.

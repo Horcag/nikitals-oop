@@ -1,45 +1,25 @@
 package ru.ssau.tk.nikitals.oop.application.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.ssau.tk.nikitals.oop.core.models.MathFunctionEntity;
-import ru.ssau.tk.nikitals.oop.core.service.MathFunctionService;
+import ru.ssau.tk.nikitals.oop.core.service.MathFunctionRegistry;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/functions")
+@Slf4j
 public class MathFunctionController {
-    private final MathFunctionService service;
-    private final Logger logger = Logger.getLogger(MathFunctionController.class.getName());
+    private final MathFunctionRegistry registry;
 
-    @PostMapping
-    public ResponseEntity<MathFunctionEntity> createFunction(@RequestParam String name,
-                                                             @RequestParam String type,
-                                                             @RequestParam String parameters) {
-        MathFunctionEntity function = service.createFunction(name, type, parameters);
-        return ResponseEntity.ok(function);
+    @GetMapping("/available")
+    public ResponseEntity<List<String>> getAvailableFunctions() {
+        List<String> functions = registry.getAvailableFunctions();
+        log.debug("Available functions: {}", functions);
+        return ResponseEntity.ok(functions);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<MathFunctionEntity> getFunctionById(@PathVariable Long id) {
-
-        return service.getFunctionById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping
-    public ResponseEntity<List<MathFunctionEntity>> getAllFunctions() {
-        return ResponseEntity.ok(service.getAllFunctions());
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFunction(@PathVariable Long id) {
-        service.deleteFunction(id);
-        return ResponseEntity.noContent().build();
-    }
 }

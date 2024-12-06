@@ -1,10 +1,12 @@
 package ru.ssau.tk.nikitals.oop.core.domain.functions.impl;
 
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.MathFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.MathFunctionInfo;
 
 /**
  * Класс, представляющий композицию двух функций.
  */
+@MathFunctionInfo(name = "Композиция функций", priority = 1)
 public class CompositeFunction implements MathFunction {
     private final MathFunction firstFunction;
     private final MathFunction secondFunction;

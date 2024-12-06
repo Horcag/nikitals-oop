@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h5 class="modal-title">Выберите функцию</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+    <!-- Поле для поиска по имени -->
+    <div class="mb-3">
+        <input type="text" class="form-control mb-3" id="functionSearch" placeholder="Поиск по имени функции...">
+    </div>
+
+    <!-- Фильтрация по типу фабрики -->
+    <div class="mb-3">
+        <select class="form-select mb-3" id="filterByType">
+            <option value="">Все типы</option>
+            <option value="Массив">Массив</option>
+            <option value="Связный список">Связный список</option>
+        </select>
+    </div>
+
+    <!-- Флажок сортировки по имени -->
+    <div class="mb-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="ByName">
+            <label class="form-check-label" for="ByName">Сортировать по имени</label>
+        </div>
+    </div>
+
+    <!-- Таблица функций -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Название</th>
+            <th>Тип фабрики</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody id="functionList">
+        <!-- Данные для функций будут загружаться динамически -->
+        </tbody>
+    </table>
+</div>

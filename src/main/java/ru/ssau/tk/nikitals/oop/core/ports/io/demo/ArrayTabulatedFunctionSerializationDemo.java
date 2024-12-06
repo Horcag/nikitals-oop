@@ -2,6 +2,7 @@ package ru.ssau.tk.nikitals.oop.core.ports.io.demo;
 
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.JaCoCoGenerated;
 import ru.ssau.tk.nikitals.oop.core.ports.io.FunctionsIO;
 import ru.ssau.tk.nikitals.oop.core.domain.operations.impl.TabulatedDifferentialOperator;
 
@@ -9,6 +10,7 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@JaCoCoGenerated
 public class ArrayTabulatedFunctionSerializationDemo {
     private static final Logger logger = Logger.getLogger(ArrayTabulatedFunctionSerializationDemo.class.getName());
     public static void main(String[] args) {
@@ -20,7 +22,9 @@ public class ArrayTabulatedFunctionSerializationDemo {
         TabulatedFunction firstDerivative = differentialOperator.derive(arrayFunction);
         TabulatedFunction secondDerivative = differentialOperator.derive(firstDerivative);
 
-        try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream("output/serialized array functions.bin"))) {
+        try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream("output/serialized array functions.bin"));
+        BufferedOutputStream outputStream1 = new BufferedOutputStream(new ByteArrayOutputStream())) {
+            FunctionsIO.serialize(outputStream1, arrayFunction);
             FunctionsIO.serialize(outputStream, arrayFunction);
             FunctionsIO.serialize(outputStream, firstDerivative);
             FunctionsIO.serialize(outputStream, secondDerivative);

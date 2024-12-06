@@ -1,11 +1,12 @@
 package ru.ssau.tk.nikitals.oop.core.domain.functions.impl;
 
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.MathFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.MathFunctionInfo;
 
 /**
- * Класс, представляющий функцию идентичности.
+ * Класс, представляющий тождественную функцию.
  */
-
+@MathFunctionInfo(name = "Тождественная функция", priority = 0)
 public class IdentityFunction implements MathFunction {
     /**
      * Применяет эту функцию к заданному аргументу.

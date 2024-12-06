@@ -1,18 +1,22 @@
 package ru.ssau.tk.nikitals.oop.core.ports.io.demo;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.factory.impl.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.factory.impl.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.JaCoCoGenerated;
 import ru.ssau.tk.nikitals.oop.core.ports.io.FunctionsIO;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Slf4j
+@JaCoCoGenerated
 public class TabulatedFunctionFileReaderDemo {
-    private static final Logger logger = Logger.getLogger(TabulatedFunctionFileReaderDemo.class.getName());
+
     public static void main(String[] args) {
         try (BufferedReader arrayReader = new BufferedReader(new FileReader("input/function.txt"));
              BufferedReader linkedListReader = new BufferedReader(new FileReader("input/function.txt"))) {
@@ -24,7 +28,7 @@ public class TabulatedFunctionFileReaderDemo {
             System.out.println(linkedListFunction.toString());
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "An error occurred during reading from file", e);
+            log.error("An error occurred during reading from file", e);
         }
     }
 }

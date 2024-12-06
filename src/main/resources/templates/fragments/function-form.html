@@ -1,0 +1,66 @@
+<div th:fragment="functionForm">
+    <div class="modal-header">
+        <h5 class="modal-title">Создание функции</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="functionForm" novalidate>
+            <div class="mb-3">
+                <label for="name" class="form-label">Название</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+
+                <label for="factoryType" class="form-label">Тип фабрики</label>
+                <select class="form-select" id="factoryType" name="factoryType">
+                    <option value="Массив">Массив</option>
+                    <option value="Связный список">Связный список</option>
+                </select>
+
+                <label for="creationType" class="form-label">Тип создания</label>
+                <select class="form-select" id="creationType" name="creationType">
+                    <option value="table">Из таблицы</option>
+                    <option value="mathFunction">Из математической функции</option>
+                </select>
+            </div>
+
+            <!-- Поля для таблицы -->
+            <div id="tableFields">
+                <div class="mb-3">
+                    <label for="pointCount" class="form-label">Количество точек</label>
+                    <input type="number" class="form-control" id="pointCount" name="pointCount" required min="2">
+                </div>
+                <button type="button" class="btn btn-secondary" id="generateTable">Создать таблицу</button>
+                <table class="table mt-3" id="pointsTable" style="display: none;">
+                    <thead>
+                    <tr>
+                        <th>X</th>
+                        <th>Y</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Поля для MathFunction -->
+            <div id="mathFunctionFields" style="display: none;">
+                <div class="mb-3">
+                    <label for="mathFunctionName" class="form-label">Выберите функцию</label>
+                    <select class="form-select" id="mathFunctionName" name="mathFunctionName"></select>
+                </div>
+                <div class="mb-3">
+                    <label for="xFrom" class="form-label">Начало интервала</label>
+                    <input type="number" class="form-control" id="xFrom" name="xFrom">
+                </div>
+                <div class="mb-3">
+                    <label for="xTo" class="form-label">Конец интервала</label>
+                    <input type="number" class="form-control" id="xTo" name="xTo">
+                </div>
+                <div class="mb-3">
+                    <label for="count" class="form-label">Количество точек</label>
+                    <input type="number" class="form-control" id="count" name="count">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Создать</button>
+        </form>
+    </div>
+</div>

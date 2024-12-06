@@ -1,90 +1,64 @@
-//package ru.ssau.tk.nikitals.oop.application.controller;
-//
-//import lombok.RequiredArgsConstructor;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.*;
-//import ru.ssau.tk.nikitals.oop.core.models.TabulatedFunctionEntity;
-//import ru.ssau.tk.nikitals.oop.core.service.TabulatedFunctionService;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Controller
-//@RequestMapping("/functions")
-//@RequiredArgsConstructor
-//public class FunctionWebController {
-//
-//    private final TabulatedFunctionService service;
-//    private static final Logger logger = LoggerFactory.getLogger(FunctionWebController.class);
-//
-//    @GetMapping
-//    public String listFunctions(Model model) {
-//        logger.info("Fetching list of functions");
-//        List<TabulatedFunctionEntity> functions = service.getAllFunctions();
-//        model.addAttribute("functions", functions);
-//        return "functions/list";
-//    }
-//
-//    @GetMapping("/{id}/edit")
-//    public String showEditForm(@PathVariable Long id, Model model) {
-//        TabulatedFunctionEntity function = service.getFunctionById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid function ID: " + id));
-//        model.addAttribute("function", function);
-//        model.addAttribute("xValues", service.getXValuesAsString(function));
-//        model.addAttribute("yValues", service.getYValuesAsString(function));
-//        return "functions/edit";
-//    }
-//    @PostMapping("/{id}/edit")
-//    public String editFunction(@PathVariable Long id,
-//                               @RequestParam String name,
-//                               @RequestParam List<Double> xValues,
-//                               @RequestParam List<Double> yValues) {
-//        if (xValues.size() != yValues.size()) {
-//            throw new IllegalArgumentException("xValues and yValues must have the same size.");
-//        }
-//
-//        // Получаем существующую функцию и обновляем ее
-//        TabulatedFunctionEntity function = service.getFunctionById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid function ID: " + id));
-//
-//        function.setName(name);
-//        function.setPoints(new ArrayList<>());
-//        for (int i = 0; i < xValues.size(); i++) {
-//            function.getPoints().add(new TabulatedFunctionEntity.Point(xValues.get(i), yValues.get(i)));
-//        }
-//
-//        service.saveFunction(function.getName(), xValues, yValues); // Обновляем функцию в базе данных
-//        return "redirect:/functions";
-//    }
-//
-//    @GetMapping("/create")
-//    public String showCreateForm(Model model) {
-//        logger.info("Displaying the create function form");
-//        model.addAttribute("function", new TabulatedFunctionEntity());
-//        return "functions/create";
-//    }
-//
-//    @PostMapping("/create")
-//    public String createFunction(@ModelAttribute TabulatedFunctionEntity function,
-//                                 @RequestParam List<Double> xValues,
-//                                 @RequestParam List<Double> yValues) {
-//        if (xValues.size() != yValues.size()) {
-//            logger.error("Size mismatch between xValues and yValues");
-//            return "redirect:/functions/create?error=invalidData";
-//        }
-//        logger.info("Creating new function with name: {}", function.getName());
-//        logger.debug("xValues: {}, yValues: {}", xValues, yValues);
-//        service.saveFunction(function.getName(), xValues, yValues);
-//        return "redirect:/functions";
-//    }
-//
-//    @GetMapping("/{id}/delete")
-//    public String deleteFunction(@PathVariable Long id) {
-//        logger.info("Deleting function with id: {}", id);
-//        service.deleteFunction(id);
-//        return "redirect:/functions";
-//    }
-//}
+package ru.ssau.tk.nikitals.oop.application.controller;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import ru.ssau.tk.nikitals.oop.application.dto.TabulatedFunctionDTO;
+
+
+@Controller
+@RequestMapping("/functions")
+@RequiredArgsConstructor
+@Slf4j
+public class FunctionWebController {
+    private final String URL = "http://localhost:8080/api/tabulated-functions";
+
+    private final RestTemplate restTemplate;
+
+    /// Переход на главную страницу
+    @GetMapping("/main")
+    public String showMainPage(Model model) {
+        String url = "http://localhost:8080/api/tabulated-functions";
+        TabulatedFunctionDTO[] functions = restTemplate.getForObject(url, TabulatedFunctionDTO[].class);
+        model.addAttribute("functions", functions); // Передаём список функций
+        return "main"; // Возвращает главный шаблон
+    }
+
+
+    @GetMapping("/modal/new")
+    public String newFunctionForm(Model model) {
+        model.addAttribute("function", new TabulatedFunctionDTO());
+        return "fragments/function-form :: functionForm";
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createFunction(@RequestBody TabulatedFunctionDTO request) {
+        try {
+            restTemplate.postForObject(URL, request, TabulatedFunctionDTO.class);
+            return ResponseEntity.ok("Function created successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @PutMapping
+    public ResponseEntity<?> updateFunction(@RequestBody TabulatedFunctionDTO request) {
+        try {
+            restTemplate.put(URL, request);
+            return ResponseEntity.ok("Function updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public String deleteFunction(@PathVariable Long id) {
+        log.debug("Deleting function with ID: {}", id);
+        restTemplate.delete(URL + "/" + id);
+        return "Deleted";
+    }
+}

@@ -4,6 +4,7 @@ import org.springframework.aot.generate.Generated;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.factory.impl.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.factory.impl.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.JaCoCoGenerated;
 import ru.ssau.tk.nikitals.oop.core.ports.io.FunctionsIO;
 import ru.ssau.tk.nikitals.oop.core.domain.operations.impl.TabulatedDifferentialOperator;
 
@@ -11,9 +12,7 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static ru.ssau.tk.nikitals.oop.core.ports.io.FunctionsIO.readTabulatedFunction;
-
-@Generated
+@JaCoCoGenerated
 public class TabulatedFunctionFileInputStreamDemo {
     private static final Logger logger = Logger.getLogger(TabulatedFunctionFileInputStreamDemo.class.getName());
     public static void main(String[] args) {

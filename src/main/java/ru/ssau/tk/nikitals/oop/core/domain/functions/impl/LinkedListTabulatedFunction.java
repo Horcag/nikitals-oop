@@ -1,5 +1,7 @@
 package ru.ssau.tk.nikitals.oop.core.domain.functions.impl;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.jetbrains.annotations.NotNull;
 import ru.ssau.tk.nikitals.oop.core.domain.exceptions.ArrayHasDuplicateElementsException;
 import ru.ssau.tk.nikitals.oop.core.domain.exceptions.ArrayIsNotSortedException;
@@ -10,6 +12,8 @@ import ru.ssau.tk.nikitals.oop.core.domain.functions.api.Insertable;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.MathFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.Removable;
 import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.JaCoCoGenerated;
+import ru.ssau.tk.nikitals.oop.core.ports.io.tools.deserializer.LinkedListTabulatedFunctionDeserializer;
+import ru.ssau.tk.nikitals.oop.core.ports.io.tools.serializer.LinkedListTabulatedFunctionSerializer;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -20,6 +24,8 @@ import java.util.NoSuchElementException;
 /**
  * Класс, представляющий табулированную функцию, хранящую значения в связном списке.
  */
+@JsonSerialize(using = LinkedListTabulatedFunctionSerializer.class)
+@JsonDeserialize(using = LinkedListTabulatedFunctionDeserializer.class)
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
     @Serial
     private static final long serialVersionUID = -2529849605610265778L;

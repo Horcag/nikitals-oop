@@ -2,6 +2,7 @@ package ru.ssau.tk.nikitals.oop.core.ports.io.demo;
 
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.JaCoCoGenerated;
 import ru.ssau.tk.nikitals.oop.core.ports.io.FunctionsIO;
 import ru.ssau.tk.nikitals.oop.core.domain.operations.impl.TabulatedDifferentialOperator;
 
@@ -9,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.*;
 
+@JaCoCoGenerated
 public class LinkedListTabulatedFunctionSerializationDemo {
     private static final Logger logger = Logger.getLogger(LinkedListTabulatedFunctionSerializationDemo.class.getName());
 

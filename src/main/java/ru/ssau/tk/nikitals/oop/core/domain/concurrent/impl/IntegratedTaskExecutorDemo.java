@@ -4,9 +4,11 @@ import ru.ssau.tk.nikitals.oop.core.domain.functions.api.MathFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.SqrFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.JaCoCoGenerated;
 
 import java.util.concurrent.ExecutionException;
 
+@JaCoCoGenerated
 public class IntegratedTaskExecutorDemo {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         MathFunction f = new SqrFunction();

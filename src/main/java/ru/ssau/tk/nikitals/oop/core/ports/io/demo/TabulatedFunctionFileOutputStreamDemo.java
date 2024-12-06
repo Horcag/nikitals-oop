@@ -3,6 +3,7 @@ package ru.ssau.tk.nikitals.oop.core.ports.io.demo;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.JaCoCoGenerated;
 import ru.ssau.tk.nikitals.oop.core.ports.io.FunctionsIO;
 
 import java.io.BufferedOutputStream;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@JaCoCoGenerated
 public class TabulatedFunctionFileOutputStreamDemo {
     private static final Logger logger = Logger.getLogger(TabulatedFunctionFileOutputStreamDemo.class.getName());
     public static void main(String[] args) {

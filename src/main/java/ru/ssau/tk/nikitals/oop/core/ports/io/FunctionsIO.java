@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.security.AnyTypePermission;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.TabulatedFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.factory.api.TabulatedFunctionFactory;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.ArrayTabulatedFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.Point;
 import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.JaCoCoGenerated;
 
@@ -147,7 +148,7 @@ public final class FunctionsIO {
      * @param reader буферизованный символьный поток.
      * @return табулированная функция.
      */
-    public static ArrayTabulatedFunction deserializeXml(BufferedReader reader) {
+    public static ArrayTabulatedFunction deserializeXml(BufferedReader reader) throws IOException {
         XStream xStream = new XStream();
         xStream.addPermission(AnyTypePermission.ANY);
         return (ArrayTabulatedFunction) xStream.fromXML(reader);
@@ -155,12 +156,12 @@ public final class FunctionsIO {
 
     /**
      * Сериализует табулированную функцию в JSON-формат.
-     *
-     * @param writer   буферизованный символьный поток.
+     * @param writer буферизованный символьный поток.
      * @param function табулированная функция.
+     * @param <T> тип табулированной функции.
      * @throws IOException если произошла ошибка ввода-вывода.
      */
-    public static void serializeJson(BufferedWriter writer, ArrayTabulatedFunction function) throws IOException {
+    public static <T extends TabulatedFunction> void serializeJson(BufferedWriter writer, T function) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         writer.write(objectMapper.writeValueAsString(function));
         writer.flush();
@@ -173,8 +174,9 @@ public final class FunctionsIO {
      * @return табулированная функция.
      * @throws IOException если произошла ошибка ввода-вывода.
      */
-    public static ArrayTabulatedFunction deserializeJson(BufferedReader reader) throws IOException {
+    public static <T extends TabulatedFunction> T deserializeJson(BufferedReader reader, Class<T> clazz) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readerFor(ArrayTabulatedFunction.class).readValue(reader);
+        return objectMapper.readValue(reader, clazz);
     }
+
 }

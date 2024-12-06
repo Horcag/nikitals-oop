@@ -1,6 +1,7 @@
 package ru.ssau.tk.nikitals.oop.core.domain.functions.impl;
 
 import ru.ssau.tk.nikitals.oop.core.domain.functions.api.MathFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.MathFunctionInfo;
 
 /**
  * Класс, реализующий метод простых итераций для нахождения корня функции.

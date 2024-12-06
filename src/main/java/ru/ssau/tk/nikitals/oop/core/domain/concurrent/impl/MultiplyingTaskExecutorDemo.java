@@ -2,10 +2,12 @@ package ru.ssau.tk.nikitals.oop.core.domain.concurrent.impl;
 
 import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.LinkedListTabulatedFunction;
 import ru.ssau.tk.nikitals.oop.core.domain.functions.impl.UnitFunction;
+import ru.ssau.tk.nikitals.oop.core.domain.tools.annotations.JaCoCoGenerated;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@JaCoCoGenerated
 public class MultiplyingTaskExecutorDemo {
     public static void main(String[] args) {
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(new UnitFunction(), 1, 1000, 1000);
